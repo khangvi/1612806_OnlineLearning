@@ -3,17 +3,14 @@ import {View, StyleSheet, ScrollView, Text} from 'react-native'
 import SectionCourses from './SectionCourses/section-courses'
 
 const Home = (props) => {
-    return <View style={styles.home}>
-        <View style={styles.header}>
-            <Text style={styles.textHeader}>Home</Text>
-        </View>
+    return (
         <ScrollView>
             <SectionCourses title = 'Continue learning'/>
             <SectionCourses title = 'Paths'/>
             <SectionCourses title = 'Channels'/>
             <SectionCourses title = 'Bookmarks'/>
         </ScrollView>
-    </View>
+    )
 };
 
 const styles = StyleSheet.create({
