@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {View, StyleSheet, ScrollView, ImageBackground, TouchableOpacity, Text} from 'react-native'
 import { Tile } from 'react-native-elements';
+import PopularSkills from './PopularSkills/popular-skills';
 
 const Browse = (props) => {
 
@@ -86,7 +87,7 @@ const Browse = (props) => {
             renderRecommended()
         }
         </ScrollView>
-    
+        <PopularSkills navigator={props.navigation}/>
     </ScrollView>
 };
 
