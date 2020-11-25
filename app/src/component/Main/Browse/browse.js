@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {View, StyleSheet, ScrollView, ImageBackground, TouchableOpacity, Text} from 'react-native'
 import { Tile } from 'react-native-elements';
+import SectionPaths from '../../Global/Components/SectionPaths/section-paths';
 import PopularSkills from './PopularSkills/popular-skills';
 
 const Browse = (props) => {
@@ -47,6 +48,34 @@ const Browse = (props) => {
             imageBackground: {uri:'https://i.imgur.com/BYKGPxV.jpg'}
         }
        ]
+       const paths=[
+        {
+               name: 'CompTIA CySA+ (CS0-002)',
+               coursesNum: 6,
+               image: {uri:'https://i.imgur.com/0bsNbxQ.jpg'}
+        },
+        {
+            name: 'Microsoft Azure Administrator (AZ-104)',
+            coursesNum: 20,
+            image: {uri:'https://i.imgur.com/qYugIdF.png'}
+        },
+        {
+            name: 'Working with REST API\'s in JavaScript',
+            coursesNum: 6,
+            image: {uri:'https://i.imgur.com/W8BRTmC.jpg'}
+        },
+        {
+            name: 'Core Python',
+            coursesNum: 15,
+            image: {uri:'https://i.imgur.com/x48JzSC.png'}
+        },
+        {
+            name: 'Building Web Applications with React',
+            coursesNum: 10,
+            image: {uri:'https://i.imgur.com/OyGbEAo.png'}
+        },
+           
+       ]
        const temp = [];
        const renderRecommended = () =>{
         for(let i = 0; i < 5; i= i + 1){
@@ -83,11 +112,10 @@ const Browse = (props) => {
         </ImageBackground>
 
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {
-            renderRecommended()
-        }
+        {renderRecommended()}
         </ScrollView>
         <PopularSkills navigator={props.navigation}/>
+        <SectionPaths title='Paths' paths = {paths} navigator={props.navigation}/>
     </ScrollView>
 };
 

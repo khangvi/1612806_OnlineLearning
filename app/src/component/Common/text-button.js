@@ -9,7 +9,7 @@ const TextButton = (props) => {
 
 const styles = StyleSheet.create({
     touch:{
-        marginTop: 20,
+        marginTop: 10,
         backgroundColor:'lightgray',
         margin: 5,
         height: 30,

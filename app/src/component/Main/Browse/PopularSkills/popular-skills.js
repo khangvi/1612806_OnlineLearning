@@ -16,6 +16,7 @@ const PopularSkills = (props) => {
 
 const styles = StyleSheet.create({
     container:{
+        marginTop:20,
         margin:10,
     },
     text:{

@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     input:{
         marginTop: 50,
         height: 60,
+        padding: 5,
     }
 })
 
