@@ -6,7 +6,7 @@ import SectionPathsItem from './section-paths-item';
 //props: title, paths: list of paths
 
 const SectionPaths = (props) => {
-    return <View >
+    return <View>
         <View>
             <Text style={styles.textTitle}>{props.title}</Text>
         </View>

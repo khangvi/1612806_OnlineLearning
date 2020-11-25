@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {View, StyleSheet, ScrollView, ImageBackground, TouchableOpacity, Text} from 'react-native'
 import { Tile } from 'react-native-elements';
+import ListAuthors from '../../Global/Components/ListAuthors/list-authors';
 import SectionPaths from '../../Global/Components/SectionPaths/section-paths';
 import PopularSkills from './PopularSkills/popular-skills';
 
@@ -73,6 +74,44 @@ const Browse = (props) => {
             name: 'Building Web Applications with React',
             coursesNum: 10,
             image: {uri:'https://i.imgur.com/OyGbEAo.png'}
+        }
+       ]
+       const authors=[
+        {
+            name: 'Deborah Kuata',
+            image:{uri:'https://i.imgur.com/fuP5jM4.jpg'}
+        },
+        {
+            name: 'Scott Allen',
+            image:{uri:'https://i.imgur.com/VxUkY4P.png'}
+        },
+        {
+            name: 'Joe Eames',
+            image:{uri:'https://i.imgur.com/88ZiPwh.jpg'}
+        },
+        {
+            name: 'Jim Cooper',
+            image:{uri:'https://i.imgur.com/rr6Nujc.jpg'}
+        },
+        {
+            name: 'Austin Bingham',
+            image:{uri:'https://i.imgur.com/vKRt1lU.jpg'}
+        },
+        {
+            name: 'Robert Smallshire',
+            image:{uri:'https://i.imgur.com/60pTsel.jpg'}
+        },
+        {
+            name: 'Samer Buna',
+            image:{uri:'https://i.imgur.com/qkH3LQ1.jpg'}
+        },
+        {
+            name: 'Mark Zamoyta',
+            image:{uri:'https://i.imgur.com/dLQJZIC.jpg'}
+        },
+        {
+            name: 'Simon Allardice',
+            image:{uri:'https://i.imgur.com/Rsn0Y44.jpg'}
         },
            
        ]
@@ -116,6 +155,7 @@ const Browse = (props) => {
         </ScrollView>
         <PopularSkills navigator={props.navigation}/>
         <SectionPaths title='Paths' paths = {paths} navigator={props.navigation}/>
+        <ListAuthors title='Top authors' authors={authors} navigator={props.navigation}/>
     </ScrollView>
 };
 
