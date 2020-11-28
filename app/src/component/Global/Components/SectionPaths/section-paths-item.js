@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         height: 200,
         width: 200,
         margin: 5,
-        backgroundColor: 'lightgray',
+        backgroundColor: '#f5faf6',
     },
     thumnail:{
         height: 100,

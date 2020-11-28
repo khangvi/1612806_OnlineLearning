@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 
 const TextButton = (props) => {
     return <TouchableOpacity style={styles.touch}>
@@ -10,7 +10,7 @@ const TextButton = (props) => {
 const styles = StyleSheet.create({
     touch:{
         marginTop: 10,
-        backgroundColor:'lightgray',
+        backgroundColor:'#f5faf6',
         margin: 5,
         height: 30,
         borderWidth: 1,

@@ -6,7 +6,6 @@ import SectionPaths from '../../Global/Components/SectionPaths/section-paths';
 import PopularSkills from './PopularSkills/popular-skills';
 
 const Browse = (props) => {
-
     const recommendTopics= [
         {
             name: 'CONFERENCES',
@@ -121,7 +120,8 @@ const Browse = (props) => {
             temp.push( 
             <View>
                 <ImageBackground style={styles.imageTopics} source={recommendTopics[i].imageBackground}>
-                    <TouchableOpacity uchableOpacity style={styles.touch}>
+                    <TouchableOpacity uchableOpacity style={styles.touch}         
+                    >
                          <Text style={styles.textTopics}>{recommendTopics[i].name}</Text>
                     </TouchableOpacity>    
                 </ImageBackground>
@@ -139,7 +139,7 @@ const Browse = (props) => {
 
     return <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
        <ImageBackground style={styles.image} source={require('../../../../assets/new_release_theme.jpg')}>
-            <TouchableOpacity uchableOpacity style={styles.touch}>
+            <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => {props.navigation.push("CourseList")}}>
                 <Text style={styles.text}>{`NEW\nRELEASE`}</Text>
             </TouchableOpacity>    
         </ImageBackground>

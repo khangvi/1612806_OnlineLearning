@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView} from 'react-native'
+import {View, StyleSheet, Text, ScrollView} from 'react-native'
 import TextButton from '../../../Common/text-button';
 
 const PopularSkills = (props) => {

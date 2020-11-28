@@ -1,14 +1,14 @@
 import React from 'react'
 import {View, StyleSheet, ScrollView, Text} from 'react-native'
-import SectionCourses from './SectionCourses/section-courses'
+import SectionCourses from '../../Global/Components/SectionCourses/section-courses';
 
 const Home = (props) => {
     return (
         <ScrollView>
-            <SectionCourses title = 'Continue learning'/>
-            <SectionCourses title = 'Paths'/>
-            <SectionCourses title = 'Channels'/>
-            <SectionCourses title = 'Bookmarks'/>
+            <SectionCourses title = 'Software Development'/>
+            <SectionCourses title = 'IT Operations'/>
+            <SectionCourses title = 'Data Professional'/>
+            <SectionCourses title = 'Security Professional'/>
         </ScrollView>
     )
 };

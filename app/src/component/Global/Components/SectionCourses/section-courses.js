@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, Text, ScrollView} from 'react-native'
-import SectionCoursesItem from '../SectionCoursesItem/section-courses-item';
+import CourseItem from '../CourseItem/course-item';
 
 const SectionCourses = (props) => {
     const data = [
@@ -31,14 +31,14 @@ const SectionCourses = (props) => {
     ]
 
     const renderListItems = (data) =>{
-        return data.map(item => <SectionCoursesItem item = {item}/>);
+        return data.map(item => <CourseItem item = {item}/>);
     }
 
     return <View>
         <View>
             <Text style = {styles.text}>{props.title}</Text>
         </View>
-        <ScrollView horizontal = {true}>
+        <ScrollView horizontal = {true} showsHorizontalScrollIndicator={false}>
             {renderListItems(data)} 
         </ScrollView>
     </View>

@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import 'react-native-gesture-handler';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import Home from "../app/src/component/Main/Home/home";
-import Login from "../app/src/component/Authentication/login";
-import ListCourses from './src/component/Courses/ListCourses/list-courses';
 import Browse from './src/component/Main/Browse/browse';
-import {Avatar, Icon, SearchBar} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import Dowload from './src/component/Main/Download/download';
 import Search from './src/component/Main/Search/search';
+import ListCourses from './src/component/Global/Components/ListCourses/list-courses';
 
 const Tab = createBottomTabNavigator();
+const screenStack = createStackNavigator();
 
 export default function App() {
+  const browseStack = () => {
+    return (
+        <screenStack.Navigator initialRouteName={"Download"} mode={'modal'}>
+            <screenStack.Screen name={"Browse"} component={Browse}/>
+            <screenStack.Screen name={"CourseList"} component={ListCourses}/>
+        </screenStack.Navigator>
+    );
+};
+
   return (
     <NavigationContainer>
       <Tab.Navigator 
@@ -41,7 +50,7 @@ export default function App() {
       >
         <Tab.Screen name="Home" component={Home}/>
         <Tab.Screen name="Download" component={Dowload}/>
-        <Tab.Screen name="Browse" component={Browse}/>
+        <Tab.Screen name="Browse" component={browseStack}/>
         <Tab.Screen name="Search" component={Search}/>
       </Tab.Navigator>
     </NavigationContainer>
