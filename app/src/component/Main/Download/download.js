@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
 
-const Dowload = (props) => {
+export const Download = (props) => {
     return <View >
         
     </View>
@@ -10,6 +10,4 @@ const Dowload = (props) => {
 const styles = StyleSheet.create({
     
 })
-
-export default Dowload;
 

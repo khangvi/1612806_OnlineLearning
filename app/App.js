@@ -7,9 +7,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from "../app/src/component/Main/Home/home";
 import Browse from './src/component/Main/Browse/browse';
 import {Icon} from 'react-native-elements';
-import Dowload from './src/component/Main/Download/download';
+import Dowload, {Download} from './src/component/Main/Download/download';
 import Search from './src/component/Main/Search/search';
 import ListCourses from './src/component/Global/Components/ListCourses/list-courses';
+import {CourseDetail} from "./src/component/CourseDetail/course-detail";
 
 const Tab = createBottomTabNavigator();
 const screenStack = createStackNavigator();
@@ -24,36 +25,46 @@ export default function App() {
     );
 };
 
+  const data={
+      id: 1,
+      title: 'React',
+      author: 'Hai Pham',
+      level: 'Intermediate',
+      released: 'Nov 2020',
+      duration: '40 hours'
+  }
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator 
-                      screenOptions={({route}) => ({
-                      tabBarIcon: ({color, size}) => {
-                          let iconName;
-                          if (route.name === "Home") {
-                              iconName = 'home';
-                          } else if (route.name === "Download") {
-                              iconName = 'get-app';
-                          } else if (route.name === "Browse") {
-                              iconName = 'explore';
-                          } else if (route.name === "Search") {
-                              iconName = 'search';
-                          }
-                          return <Icon name={iconName} type={'material-icons'} size={size} color={color}/>;
-                      },
-                  })}
-                  tabBarOptions={{
-                      activeTintColor: 'blue',
-                      inactiveTintColor: 'gray',
-                      style: {backgroundColor: 'white'}
-                  }}
-      >
-        <Tab.Screen name="Home" component={Home}/>
-        <Tab.Screen name="Download" component={Dowload}/>
-        <Tab.Screen name="Browse" component={browseStack}/>
-        <Tab.Screen name="Search" component={Search}/>
-      </Tab.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Tab.Navigator
+    //                   screenOptions={({route}) => ({
+    //                   tabBarIcon: ({color, size}) => {
+    //                       let iconName;
+    //                       if (route.name === "Home") {
+    //                           iconName = 'home';
+    //                       } else if (route.name === "Download") {
+    //                           iconName = 'get-app';
+    //                       } else if (route.name === "Browse") {
+    //                           iconName = 'explore';
+    //                       } else if (route.name === "Search") {
+    //                           iconName = 'search';
+    //                       }
+    //                       return <Icon name={iconName} type={'material-icons'} size={size} color={color}/>;
+    //                   },
+    //               })}
+    //               tabBarOptions={{
+    //                   activeTintColor: 'blue',
+    //                   inactiveTintColor: 'gray',
+    //                   style: {backgroundColor: 'white'}
+    //               }}
+    //   >
+    //     <Tab.Screen name="Home" component={Home}/>
+    //     <Tab.Screen name="Download" component={Download}/>
+    //     <Tab.Screen name="Browse" component={browseStack}/>
+    //     <Tab.Screen name="Search" component={Search}/>
+    //   </Tab.Navigator>
+    // </NavigationContainer>
+      <CourseDetail item={data}/>
   );
 }
 
