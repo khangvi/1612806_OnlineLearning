@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 
-const TextButton = (props) => {
+const TextButton = ({title}) => {
     return <TouchableOpacity style={styles.touch}>
-        <Text style={styles.text}>{props.item.title}</Text>
+        <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
 };
 
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize: 12,
+        textAlign:'center'
     }
 })
 

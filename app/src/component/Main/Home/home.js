@@ -5,10 +5,10 @@ import SectionCourses from '../../Global/Components/SectionCourses/section-cours
 const Home = (props) => {
     return (
         <ScrollView>
-            <SectionCourses title = 'Software Development'/>
-            <SectionCourses title = 'IT Operations'/>
-            <SectionCourses title = 'Data Professional'/>
-            <SectionCourses title = 'Security Professional'/>
+            <SectionCourses title = 'Software Development' navigation={props.navigation}/>
+            <SectionCourses title = 'IT Operations' navigation={props.navigation}/>
+            <SectionCourses title = 'Data Professional' navigation={props.navigation}/>
+            <SectionCourses title = 'Security Professional' navigation={props.navigation}/>
         </ScrollView>
     )
 };

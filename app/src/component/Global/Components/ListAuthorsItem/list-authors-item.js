@@ -3,7 +3,9 @@ import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
 import { Avatar } from 'react-native-elements';
 
 const ListAuthorsItem = (props) => {
-    return <TouchableOpacity style={styles.container}>
+    return <TouchableOpacity style={styles.container}
+                             onPress={()=> {props.navigation.navigate("AuthorDetail", {item:props.item})}}
+    >
         <Avatar 
         size="large"
         rounded

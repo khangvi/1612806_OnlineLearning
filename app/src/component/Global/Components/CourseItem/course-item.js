@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, Image} from 'react-native'
 import CourseScriptInfo from './course-script-info';
 
 const CourseItem = (props) => {
-    return <TouchableOpacity style={styles.item} >
+    return <TouchableOpacity style={styles.item} onPress={()=> props.navigation.navigate('CourseDetail', {item:props.item})}>
         <Image style={styles.image} source={require('../../../../../assets/react_icon2.jpg')}/>
         <CourseScriptInfo item = {props.item}/>
     </TouchableOpacity>

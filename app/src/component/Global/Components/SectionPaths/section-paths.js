@@ -11,7 +11,7 @@ const SectionPaths = (props) => {
             <Text style={styles.textTitle}>{props.title}</Text>
         </View>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {props.paths.map(path => <SectionPathsItem item = {path} navigator={props.navigation}/>)}
+            {props.paths.map(path => <SectionPathsItem item = {path} navigation={props.navigation}/>)}
         </ScrollView>
     </View>
 };

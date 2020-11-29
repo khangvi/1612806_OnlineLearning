@@ -154,8 +154,8 @@ const Browse = (props) => {
         {renderRecommended()}
         </ScrollView>
         <PopularSkills navigator={props.navigation}/>
-        <SectionPaths title='Paths' paths = {paths} navigator={props.navigation}/>
-        <ListAuthors title='Top authors' authors={authors} navigator={props.navigation}/>
+        <SectionPaths title='Paths' paths = {paths} navigation={props.navigation}/>
+        <ListAuthors title='Top authors' authors={authors} navigation={props.navigation}/>
     </ScrollView>
 };
 

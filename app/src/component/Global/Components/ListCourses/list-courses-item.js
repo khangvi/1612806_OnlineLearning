@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import CourseScriptInfo from '../CourseItem/course-script-info';
 
 const ListCoursesItem = (props) => {
-    return <TouchableOpacity style={styles.touch}>
+    return <TouchableOpacity style={styles.touch} onPress={()=> props.navigation.navigate("CourseDetail", {item:props.item})}>
         <Image source={props.item.image} style={styles.image}/>
         <CourseScriptInfo item={props.item}/>
     </TouchableOpacity>
@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#f5faf6'
     },
     image:{
-        width:100,
-        height:100,
+        width:60,
+        height:60,
         resizeMode:'stretch'
     }
 })

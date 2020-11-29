@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 
 const SectionPathsItem = (props) => {
-    return <TouchableOpacity style={styles.container}>
+    return <TouchableOpacity style={styles.container} onPress={()=> props.navigation.navigate("PathDetail", {item:props.item})}>
         <Image source={props.item.image} style={styles.thumnail}/>
         <Text style={styles.textTitle}>{props.item.name}</Text>
         <Text style={styles.textScript}>{props.item.coursesNum} courses</Text>

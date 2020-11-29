@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    width: 60,
-    height: 60
+    width: 30,
+    height: 30
   },
   txt: {
     marginTop: 5,
     color: '#000000',
-    fontSize: 15
+    fontSize: 12
   }
 })
 

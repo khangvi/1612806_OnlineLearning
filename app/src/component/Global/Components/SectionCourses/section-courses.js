@@ -31,7 +31,7 @@ const SectionCourses = (props) => {
     ]
 
     const renderListItems = (data) =>{
-        return data.map(item => <CourseItem item = {item}/>);
+        return data.map(item => <CourseItem item = {item} navigation={props.navigation}/>);
     }
 
     return <View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
    
     text:{
         margin: 5,
-        fontSize: 20,
+        fontSize: 17,
         fontWeight: 'bold',
     }
 });
