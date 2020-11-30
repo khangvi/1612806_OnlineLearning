@@ -1,4 +1,3 @@
-import { useLinkProps } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Image} from 'react-native'
 import CourseScriptInfo from './course-script-info';

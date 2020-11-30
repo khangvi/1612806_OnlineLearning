@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, ScrollView, Image} from 'react-native'
-import {IconButton} from "../Common/icon-button";
-import ViewMoreText from 'react-native-view-more-text';
-import { ListLessions } from './list-lessions';
-
-
+import React from 'react';
+import {View, StyleSheet, Text, ScrollView, Image} from 'react-native'
+import IconButton from "../Common/icon-button";
+import {ViewMoreText} from 'react-native-elements';
+import ListLessions  from './list-lessions';
 
 export const CourseDetail = (props) => {
   const item=props.route.params.item

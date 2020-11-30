@@ -1,8 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
-import { Avatar } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
-import ViewMoreText from 'react-native-view-more-text';
+import {View, StyleSheet, Text, ScrollView} from 'react-native'
+import {Avatar,ViewMoreText} from 'react-native-elements';
 import TextButton from '../Common/text-button';
 import ListCourses from '../Global/Components/ListCourses/list-courses';
 
