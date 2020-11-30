@@ -4,7 +4,7 @@ import IconButton from "../Common/icon-button";
 import {ViewMoreText} from 'react-native-elements';
 import ListLessions  from './list-lessions';
 
-export const CourseDetail = (props) => {
+const CourseDetail = (props) => {
   const item=props.route.params.item
   const lessions=[
     {
@@ -122,4 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around"
   }
 })
+
+export default CourseDetail;
+
 
