@@ -13,6 +13,7 @@ import ListCourses from './src/component/Global/Components/ListCourses/list-cour
 import {CourseDetail} from "./src/component/CourseDetail/course-detail";
 import { AuthorDetail } from './src/component/AuthorDetail/author-detail';
 import { PathDetail } from './src/component/PathDetail/path-detail';
+import { SubjectDetail } from './src/component/SubjectDetail/subject-detail';
 
 const Tab = createBottomTabNavigator();
 const screenStack = createStackNavigator();
@@ -26,6 +27,7 @@ export default function App() {
             <screenStack.Screen name={"AuthorDetail"} component={AuthorDetail}/>
             <screenStack.Screen name={"CourseDetail"} component={CourseDetail}/>
             <screenStack.Screen name={"PathDetail"} component={PathDetail}/>
+            <screenStack.Screen name={"SubjectDetail"} component={SubjectDetail}/>
 
         </screenStack.Navigator>
     );

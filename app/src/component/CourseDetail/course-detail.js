@@ -1,10 +1,13 @@
-import React from 'react';
-import {View, StyleSheet, Text, ScrollView, Image} from 'react-native'
-import IconButton from "../Common/icon-button";
-import {ViewMoreText} from 'react-native-elements';
-import ListLessions  from './list-lessions';
+import React, {useState} from 'react';
+import {View, StyleSheet, Text, TouchableOpacity, ScrollView, Image} from 'react-native'
+import {IconButton} from "../Common/icon-button";
+import ViewMoreText from 'react-native-view-more-text';
+import { ListLessions } from './list-lessions';
+import { Rating } from 'react-native-elements';
 
-const CourseDetail = (props) => {
+
+
+export const CourseDetail = (props) => {
   const item=props.route.params.item
   const lessions=[
     {
@@ -69,14 +72,19 @@ const CourseDetail = (props) => {
   return (
     <View>
       <View style={styles.videoPlayer}>
-        <Image source={{uri: 'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-play-icon-png-image_695339.jpg'}}
+        <Image source={item.image}
               style={{height: 200, width: 200}}
         />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.infoContainer}>
           <Text style={styles.textHeader}>{item.title}</Text>
-          <Text style={styles.textInfo}>{item.level} . {item.released} . {item.duration}</Text>
+          <View style={{flexDirection:'row'}}>
+            <Text style={styles.textInfo}>{item.level} . {item.released} . {item.duration}</Text>
+            <Rating style={{margin:5}} readonly={true} tintColor={styles.darkText} imageSize={12} startingValue={item.star} />
+            <Text>({item.vote})</Text>
+          </View>
+
         </View>
         <View style={styles.iconButtonContainer}>
           <IconButton icon={require('../../../assets/bookmark-icon.png')} text={'Bookmark'} onPressButton={() => {
@@ -122,7 +130,4 @@ const styles = StyleSheet.create({
     justifyContent: "space-around"
   }
 })
-
-export default CourseDetail;
-
 

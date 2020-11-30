@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 
-const TextButton = ({title}) => {
-    return <TouchableOpacity style={styles.touch}>
+const TextButton = ({title, navigation}) => {
+    return <TouchableOpacity style={styles.touch} onPress={()=> navigation.navigate('SubjectDetail', {title:title})}>
         <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
 };

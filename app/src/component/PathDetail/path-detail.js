@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text, Image, ScrollView} from 'react-native'
-import {ViewMoreText} from 'react-native-elements';
+import ViewMoreText from 'react-native-view-more-text';
 import ListCourses from '../Global/Components/ListCourses/list-courses';
 
 export const PathDetail = (props) => {

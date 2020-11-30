@@ -16,7 +16,8 @@ const ListAuthors = (props) => {
 
 const styles = StyleSheet.create({
     container:{
-        marginTop:20,
+        marginTop:15,
+        margin:5,
     },
     textTitle:{
         fontSize: 17,

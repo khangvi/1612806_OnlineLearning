@@ -120,14 +120,13 @@ const Browse = (props) => {
             temp.push( 
             <View>
                 <ImageBackground style={styles.imageTopics} source={recommendTopics[i].imageBackground}>
-                    <TouchableOpacity uchableOpacity style={styles.touch}         
-                    >
+                    <TouchableOpacity uchableOpacity style={styles.touch} onPress={()=>props.navigation.navigate('SubjectDetail', {title:recommendTopics[i].name})}>
                          <Text style={styles.textTopics}>{recommendTopics[i].name}</Text>
                     </TouchableOpacity>    
                 </ImageBackground>
 
-                <ImageBackground style={styles.imageTopics} source={recommendTopics[i + 5].imageBackground}>
-                    <TouchableOpacity uchableOpacity style={styles.touch}>
+                <ImageBackground style={styles.imageTopics} source={recommendTopics[i + 5].imageBackground }>
+                    <TouchableOpacity uchableOpacity style={styles.touch} onPress={()=>props.navigation.navigate('SubjectDetail', {title:recommendTopics[i + 5].name})}>
                          <Text style={styles.textTopics}>{recommendTopics[i + 5].name}</Text>
                     </TouchableOpacity>    
                 </ImageBackground>                                 
@@ -139,13 +138,13 @@ const Browse = (props) => {
 
     return <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
        <ImageBackground style={styles.image} source={require('../../../../assets/new_release_theme.jpg')}>
-            <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => {props.navigation.push("CourseList")}}>
+            <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {header:"NEW RELESAE"})}>
                 <Text style={styles.text}>{`NEW\nRELEASE`}</Text>
             </TouchableOpacity>    
         </ImageBackground>
 
         <ImageBackground style={styles.image} source={require('../../../../assets/recommended.jpg')}>
-            <TouchableOpacity uchableOpacity style={styles.touch}>
+            <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {header:"RECOMMENDED FOR YOU"})}>
                 <Text style={styles.text}>{`RECOMMENDED\nFOR YOU`}</Text>
             </TouchableOpacity>    
         </ImageBackground>
@@ -153,7 +152,7 @@ const Browse = (props) => {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {renderRecommended()}
         </ScrollView>
-        <PopularSkills navigator={props.navigation}/>
+        <PopularSkills navigation={props.navigation}/>
         <SectionPaths title='Paths' paths = {paths} navigation={props.navigation}/>
         <ListAuthors title='Top authors' authors={authors} navigation={props.navigation}/>
     </ScrollView>
