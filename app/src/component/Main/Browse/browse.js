@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import {View, StyleSheet, ScrollView, ImageBackground, TouchableOpacity, Text} from 'react-native'
-import { Tile } from 'react-native-elements';
-import { CoursesContext } from '../../../../App';
+import { Avatar, Icon, Tile } from 'react-native-elements';
+import { CoursesContext, UserProfileContext } from '../../../../App';
 import ListAuthors from '../../Global/Components/ListAuthors/list-authors';
 import SectionPaths from '../../Global/Components/SectionPaths/section-paths';
 import PopularSkills from './PopularSkills/popular-skills';
 
 const Browse = (props) => {
+  
   const recommendTopics= [
     {
         name: 'CONFERENCES',
@@ -118,6 +119,20 @@ const Browse = (props) => {
 
   const coursesContext=useContext(CoursesContext);
   const allCourses=coursesContext.allCourses;
+  const userProfileContext= useContext(UserProfileContext);
+  const userProfile = userProfileContext.userProfile;
+
+  props.navigation.setOptions({
+    //headerStyle: {backgroundColor: theme.background},
+    //headerTitleStyle: {color: theme.foreground},
+    headerRight: () => (
+        <View style={{flexDirection: 'row'}}>
+            <Avatar rounded={true} source={userProfile.avatar} size={'small'}
+                                   onPress={()=> props.navigation.navigate("Profile", {user: userProfile})}
+            />              
+            <Icon containerStyle={{marginLeft: 10, marginRight: 10, marginTop: 5}} name={'settings'} type={'material-icons'} color={'gray'} onPress={() => props.navigation.navigate("Setting")}/>
+        </View>)
+})
   const renderRecommended = () =>{
   for(let i = 0; i < 5; i= i + 1){
     temp.push( 
@@ -141,13 +156,13 @@ const Browse = (props) => {
   return( 
   <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
     <ImageBackground style={styles.image} source={require('../../../../assets/new_release_theme.jpg')}>
-      <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {title:"NEW RELESAE", courses: allCourses})}>
+      <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {title:"NEW RELESAE", courses: allCourses, navigation: props.navigation})}>
         <Text style={styles.text}>{`NEW\nRELEASE`}</Text>
       </TouchableOpacity>    
     </ImageBackground>
 
     <ImageBackground style={styles.image} source={require('../../../../assets/recommended.jpg')}>
-      <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {title:"RECOMMENDED FOR YOU", courses: allCourses})}>
+      <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {title:"RECOMMENDED FOR YOU", courses: allCourses, navigation: props.navigation})}>
         <Text style={styles.text}>{`RECOMMENDED\nFOR YOU`}</Text>
       </TouchableOpacity>    
     </ImageBackground>

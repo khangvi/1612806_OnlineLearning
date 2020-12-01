@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,7 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from "../app/src/component/Main/Home/home";
 import Browse from './src/component/Main/Browse/browse';
 import {Icon} from 'react-native-elements';
-import Dowload, {Download} from './src/component/Main/Download/download';
+import {Download} from './src/component/Main/Download/download';
 import Search from './src/component/Main/Search/search';
 import ListCourses from './src/component/Global/Components/ListCourses/list-courses';
 import {CourseDetail} from "./src/component/CourseDetail/course-detail";
@@ -16,6 +16,8 @@ import { PathDetail } from './src/component/PathDetail/path-detail';
 import { SubjectDetail } from './src/component/SubjectDetail/subject-detail';
 import { getAllCourses, getBookmarkedCourses, getDownloadedCourses } from './src/core/services/courses-service';
 import Login from './src/component/Authentication/login';
+import { SplashScreen } from './src/component/SplashScreen/splash-screen';
+import { Profile } from './src/component/Account/profile';
 
 const Tab = createBottomTabNavigator();
 const screenStack = createStackNavigator();
@@ -23,14 +25,14 @@ const mainStack = createStackNavigator();
 
 const browseStack = () => {
   return (
-      <screenStack.Navigator initialRouteName={"Download"} mode={'modal'}>
+      <screenStack.Navigator initialRouteName={"Browse"} mode={'modal'}>
           <screenStack.Screen name={"Browse"} component={Browse}/>
           <screenStack.Screen name={"CourseList"} component={ListCourses}/>
           <screenStack.Screen name={"AuthorDetail"} component={AuthorDetail}/>
           <screenStack.Screen name={"CourseDetail"} component={CourseDetail}/>
           <screenStack.Screen name={"PathDetail"} component={PathDetail}/>
           <screenStack.Screen name={"SubjectDetail"} component={SubjectDetail}/>
-
+          <screenStack.Screen name={"Profile"} component={Profile}/>
       </screenStack.Navigator>
   );
 };
@@ -41,6 +43,7 @@ const homeStack = () => {
         <screenStack.Screen name={"Home"} component={Home}/>
         <screenStack.Screen name={"CourseDetail"} component={CourseDetail}/>
         <screenStack.Screen name={"CourseList"} component={ListCourses}/>
+        <screenStack.Screen name={"Profile"} component={Profile}/>
       </screenStack.Navigator>
   );
 };
@@ -49,6 +52,7 @@ const downloadStack = () =>{
     <screenStack.Navigator initialRouteName={"Download"} mode={'modal'}>
       <screenStack.Screen name={"Download"} component={Download}/>
       <screenStack.Screen name={"CourseDetail"} component={CourseDetail}/>
+      <screenStack.Screen name={"Profile"} component={Profile}/>
     </screenStack.Navigator>
     )
 }
@@ -87,7 +91,8 @@ const MainTabNavigation = () =>{
 
 const TabNavigation = () =>{
   return (
-    <mainStack.Navigator initialRouteName={"Login"} screenOptions={{headerShown: false, headerBackTitleVisible: false}}>
+    <mainStack.Navigator initialRouteName={"Splash"} screenOptions={{headerShown: false, headerBackTitleVisible: false}}>
+      <mainStack.Screen name="Splash" component={SplashScreen}/>
       <mainStack.Screen name="Login" component={Login}/>
       <mainStack.Screen name="Tab" component={MainTabNavigation} />
     </mainStack.Navigator>
@@ -96,6 +101,7 @@ const TabNavigation = () =>{
 
 export const CoursesContext = createContext();
 export const UserProfileContext = createContext();
+//export const ThemeContext = createContext();
 
 export default function App() {
   const [userProfile, setUserProfile] = useState(null);
@@ -103,7 +109,7 @@ export default function App() {
   const [downloadedCourses, setDownloadedCourses]=useState(getDownloadedCourses);
   const [bookmarkedCourses, setBookmarkedCourses]=useState(getBookmarkedCourses);
   return (
-    <UserProfileContext.Provider value={{userProfile, setUserProfile}}>
+      <UserProfileContext.Provider value={{userProfile, setUserProfile}}>
       <CoursesContext.Provider value={{allCourses, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
         <NavigationContainer>
         <TabNavigation/>

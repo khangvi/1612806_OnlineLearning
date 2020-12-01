@@ -5,6 +5,7 @@ import { Divider } from 'react-native-elements';
 
 
 const ListCourses = (props) => {
+  let navigation
   let data
   let name
   if(props.route){
