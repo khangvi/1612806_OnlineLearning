@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, ScrollView, Image} from 'react-native'
-import {IconButton} from "../Common/icon-button";
 import ViewMoreText from 'react-native-view-more-text';
 import { ListLessions } from './list-lessions';
-import { Rating } from 'react-native-elements';
+import { Icon, Rating } from 'react-native-elements';
+import { CoursesContext } from '../../../App';
 
 
 
@@ -67,8 +67,42 @@ export const CourseDetail = (props) => {
       {name:'Introduction', time:'1:01'}, {name:'Downloading .NET for Windows, macOS, and Linux', time:'2:35'}
     ]
     },
-
   ]
+
+  const coursesContext=useContext(CoursesContext);
+  const [bookmarkIcon, setBookmarkIcon] = useState(item.bookmarked === true ? 'bookmark' : 'bookmark-border')
+  const [bookmarkText, setBookmarkText] = useState(item.bookmarked === true ? 'Bookmarked' : 'Bookmark')
+  const [downloadIcon, setDownloadIcon] = useState(item.downloaded === true ? 'cloud-done' : 'cloud-download')
+  const [downloadText, setDownloadText] = useState(item.downloaded === true ? 'Downloaded' : 'Download')
+
+  const changeBookmarkStatus = () => {
+    if(item.bookmarked === true){
+      item.bookmarked = false
+      //coursesContext.bookmarkedCourses.filter(i => i.id === item.id )
+      setBookmarkIcon('bookmark-border')
+      setBookmarkText('bookmark')
+    }else{
+      item.bookmarked = true
+      coursesContext.bookmarkedCourses.push(item)
+      setBookmarkIcon('bookmark')
+      setBookmarkText('bookmarked')
+    }
+  }
+
+  const changeDownloadStatus = () => {
+    if(item.downloaded === true){
+      item.downloaded = false
+      setDownloadIcon('cloud-download')
+      setDownloadText('Download')
+    }else{
+      item.downloaded = true
+      coursesContext.downloadedCourses.push(item)
+      setDownloadIcon('cloud-done')
+      setDownloadText('Downloaded')
+    }
+  }
+
+  
   return (
     <View>
       <View style={styles.videoPlayer}>
@@ -84,14 +118,20 @@ export const CourseDetail = (props) => {
             <Rating style={{margin:5}} readonly={true} tintColor={styles.darkText} imageSize={12} startingValue={item.star} />
             <Text>({item.vote})</Text>
           </View>
-
         </View>
         <View style={styles.iconButtonContainer}>
-          <IconButton icon={require('../../../assets/bookmark-icon.png')} text={'Bookmark'} onPressButton={() => {
-            
-          }} />
-          <IconButton icon={require('../../../assets/add-channel-icon.png')} text={'Add to Channel'} />
-          <IconButton icon={require('../../../assets/download-icon.png')} text={'Download'} />
+          <TouchableOpacity onPress={changeBookmarkStatus}>
+            <Icon name={bookmarkIcon} type={'material-icons'} size={30}/>
+            <Text>{bookmarkText}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Icon name={'add-to-queue'} type={'material-icons'} size={30}/>
+            <Text>Add to Channel</Text>
+          </TouchableOpacity>    
+          <TouchableOpacity onPress={changeDownloadStatus}>
+            <Icon name={downloadIcon} type={'material-icons'} size={30}/>
+            <Text>{downloadText}</Text>
+          </TouchableOpacity>       
         </View>
         <View style={{margin: 10}}>
           <ViewMoreText numberOfLines={3} textStyle={{fontSize: 12}}>

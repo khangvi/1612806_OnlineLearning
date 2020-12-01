@@ -1,15 +1,20 @@
-import React from 'react'
-import {View, StyleSheet, ScrollView, Text} from 'react-native'
+import React, { useContext } from 'react'
+import {StyleSheet, ScrollView} from 'react-native'
+import { CoursesContext } from '../../../../App';
 import SectionCourses from '../../Global/Components/SectionCourses/section-courses';
 
 const Home = (props) => {
+    const coursesContext = useContext(CoursesContext);
+    const courseList = coursesContext.allCourses;
+    const bookmarkedCourses=coursesContext.bookmarkedCourses;
     return (
-        <ScrollView>
-            <SectionCourses title = 'Software Development' navigation={props.navigation}/>
-            <SectionCourses title = 'IT Operations' navigation={props.navigation}/>
-            <SectionCourses title = 'Data Professional' navigation={props.navigation}/>
-            <SectionCourses title = 'Security Professional' navigation={props.navigation}/>
-        </ScrollView>
+    <ScrollView>
+      <SectionCourses title = 'Software Development' courses={courseList} navigation={props.navigation}/>
+      <SectionCourses title = 'IT Operations' courses={courseList} navigation={props.navigation}/>
+      <SectionCourses title = 'Data Professional' courses={courseList} navigation={props.navigation}/>
+      <SectionCourses title = 'Security Professional' courses={courseList} navigation={props.navigation}/>
+      <SectionCourses title = 'Bookmarks' courses={bookmarkedCourses} navigation={props.navigation}/>
+    </ScrollView>
     )
 };
 

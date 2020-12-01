@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
 import { Avatar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import ViewMoreText from 'react-native-view-more-text';
+import { CoursesContext } from '../../../App';
 import TextButton from '../Common/text-button';
 import ListCourses from '../Global/Components/ListCourses/list-courses';
 
 export const AuthorDetail = (props) => {
+  const coursesContext=useContext(CoursesContext);
+  const allCourses=coursesContext.allCourses;
   const item=props.route.params.item
   return (
   <ScrollView>
@@ -29,7 +32,7 @@ export const AuthorDetail = (props) => {
         </Text>
       </ViewMoreText>
     </View>
-    <ListCourses title="Course" navigation={props.navigation}/>
+    <ListCourses title="Course" courses={allCourses} navigation={props.navigation}/>
   </ScrollView>
   )
 };

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, StyleSheet, Text, Image, ScrollView} from 'react-native'
 import ViewMoreText from 'react-native-view-more-text';
+import { CoursesContext } from '../../../App';
 import ListCourses from '../Global/Components/ListCourses/list-courses';
 
 export const PathDetail = (props) => {
+  const coursesConText=useContext(CoursesContext);
+  const allCourses=coursesConText.allCourses;
   let item = props.route.params.item
   props.navigation.setOptions({title: item.name})
   return(
@@ -24,9 +27,9 @@ export const PathDetail = (props) => {
             </Text>
           </ViewMoreText>
         </View>
-        <ListCourses title="Beginner" navigation={props.navigation}/>
-        <ListCourses title="Intermediate" navigation={props.navigation}/>
-        <ListCourses title="Advanced" navigation={props.navigation}/>
+        <ListCourses title="Beginner" courses={allCourses} navigation={props.navigation}/>
+        <ListCourses title="Intermediate" courses={allCourses} navigation={props.navigation}/>
+        <ListCourses title="Advanced" courses={allCourses} navigation={props.navigation}/>
     </ScrollView>
   )
 };
