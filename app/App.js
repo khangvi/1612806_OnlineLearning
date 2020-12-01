@@ -57,6 +57,15 @@ const downloadStack = () =>{
     )
 }
 
+const searchStack = () => {
+  return (
+    <screenStack.Navigator initialRouteName={"Download"} screenOptions={{headerShown: false}}>
+       <screenStack.Screen name={"Search"} component={Search}/>
+      <screenStack.Screen name={"CourseDetail"} component={CourseDetail}/>
+    </screenStack.Navigator>
+  )
+}
+
 const MainTabNavigation = () =>{
   return (
     <Tab.Navigator
@@ -84,7 +93,7 @@ const MainTabNavigation = () =>{
       <Tab.Screen name="Home" component={homeStack}/>
       <Tab.Screen name="Download" component={downloadStack}/>
       <Tab.Screen name="Browse" component={browseStack}/>
-      <Tab.Screen name="Search" component={Search}/>
+      <Tab.Screen name="Search" component={searchStack}/>
     </Tab.Navigator>
   )
 }
