@@ -121,7 +121,7 @@ export default function App() {
    
 
   return (
-      <UserProfileContext.Provider value={{userProfile, setUserProfile, isSignedIn, setIsSignedIn, setIsLoading}}>
+      <UserProfileContext.Provider value={{ userProfile, setUserProfile, isSignedIn, setIsSignedIn, setIsLoading}}>
       <CoursesContext.Provider value={{allCourses, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
         <NavigationContainer>
         {isLoading ? (
