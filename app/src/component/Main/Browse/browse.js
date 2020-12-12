@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import {View, StyleSheet, ScrollView, ImageBackground, TouchableOpacity, Text} from 'react-native'
 import { Avatar, Icon, Tile } from 'react-native-elements';
 import { CoursesContext, UserProfileContext } from '../../../../App';
-import { getNewCourses } from '../../../core/services/courses-service';
 import ListAuthors from '../../Global/Components/ListAuthors/list-authors';
 import SectionPaths from '../../Global/Components/SectionPaths/section-paths';
 import PopularSkills from './PopularSkills/popular-skills';
