@@ -3,12 +3,12 @@ import {View, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView} from 'r
 import ListAuthorsItem from '../ListAuthorsItem/list-authors-item';
 
 //props: title, authors: list of author
-const ListAuthors = (props) => {
+const ListAuthors = ({authors, title, navigation}) => {
     return <View style={styles.container}>
-        <Text style={styles.textTitle}>{props.title}</Text>
+        <Text style={styles.textTitle}>{title}</Text>
         <View>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-              {props.authors.map(author => <ListAuthorsItem item={author} navigation={props.navigation}/>)}
+              {authors.map(author => <ListAuthorsItem item={author} navigation={navigation}/>)}
           </ScrollView>
         </View>
     </View>

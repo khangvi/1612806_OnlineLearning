@@ -122,9 +122,6 @@ const Browse = (props) => {
   const allCourses=coursesContext.allCourses;
   const userProfileContext= useContext(UserProfileContext);
   const userProfile = userProfileContext.userProfile;
-  const newReleaseCourses = getNewCourses();
-
-  console.log(newReleaseCourses);
 
   props.navigation.setOptions({
     //headerStyle: {backgroundColor: theme.background},
