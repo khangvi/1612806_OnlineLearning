@@ -1,3 +1,7 @@
+import axios from 'axios'
+
+const SERVER = 'http://api.dev.letstudy.org'
+
 export const getAllCourses = () =>{
   const data=[
     {
@@ -117,4 +121,13 @@ export const getDownloadedCourses = () => {
     }
   ];
   return data;
+}
+
+export const getNewCourses = () => {
+  let courses = []
+  axios.post('http://api.dev.letstudy.org/course/top-new', {
+    limit: 10, 
+    page: 1
+  }).then((respone) => {courses = respone.data}); 
+  return courses;
 }
