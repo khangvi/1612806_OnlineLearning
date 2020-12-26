@@ -1,48 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Avatar } from 'react-native-elements'
-import { UserProfileContext } from '../../../App'
+import { AuthenticationContext } from '../../../App'
+import { getAuthors } from '../../core/services/author'
 import ListAuthors from '../Global/Components/ListAuthors/list-authors'
 
 export const Profile = (props) => {  
-  const userProfileContext = useContext(UserProfileContext);
-  //const [isSignedOut, setIsSignedOut] = useState(false);
-  const authors=[
-    {
-        name: 'Deborah Kuata',
-        image:{uri:'https://i.imgur.com/fuP5jM4.jpg'}
-    },
-    {
-        name: 'Scott Allen',
-        image:{uri:'https://i.imgur.com/VxUkY4P.png'}
-    },
-    {
-        name: 'Joe Eames',
-        image:{uri:'https://i.imgur.com/88ZiPwh.jpg'}
-    },
-    {
-        name: 'Jim Cooper',
-        image:{uri:'https://i.imgur.com/rr6Nujc.jpg'}
-    },
-  ]
+  const authenContext = useContext(AuthenticationContext);
+  const [authors, setAuthors] = useState([]);
 
-  let user=props.route.params.user
-  // useEffect(()=>{
-  //   if(isSignedOut===true){
-  //     userProfileContext.setIsSignedIn(false);
-  //   }
-  // })
+  useEffect(() => {
+    getAuthors().then(setAuthors);
+  }, [])
+
   return (
     <View style={{flex: 1,justifyContent: 'space-between'}}>
       <View>
         <View style={styles.userContainer}>
-            <Avatar source={user.avatar} size='large'/>
-            <Text style={styles.textName}>{user.fullname}</Text>
-            <Text>{user.subscription}</Text>
+            <Avatar source={{uri: authenContext.authenState.userInfo.avatar}} size='large'/>
+            <Text style={styles.textName}>{authenContext.authenState.userInfo.name}</Text>
+            <Text>{authenContext.authenState.userInfo.phone}</Text>
+            <TouchableOpacity style={styles.changePassButton} onPress={() => props.navigation.navigate("ChangePassword")}>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>Change Password</Text>
+            </TouchableOpacity>
         </View>
       <ListAuthors title="Follow Author" authors={authors} navigation={props.navigation}/>
       </View>
-        <TouchableOpacity style={styles.touch} onPress={() => userProfileContext.setIsSignedIn(false)}>
+        <TouchableOpacity style={styles.touch} onPress={() => authenContext.logout()}>
           <Text style={styles.textSignOut}>Sign out</Text>
         </TouchableOpacity>
     </View>  
@@ -72,13 +56,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 17,
   }, 
-  changeThemeButton:{
-    margin: 10,
+  changePassButton:{
     height: 30,
-    width: 150, 
     backgroundColor: '#3faee0',
+    margin: 20,
     borderRadius: 5,
-    justifyContent:'center'
+    padding: 5
   }
 })
 

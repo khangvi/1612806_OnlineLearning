@@ -5,7 +5,7 @@ import CourseScriptInfo from './course-script-info';
 
 const CourseItem = (props) => {
     return <TouchableOpacity style={styles.item} onPress={()=> props.navigation.navigate('CourseDetail', {item:props.item})}>
-        <Image style={styles.image} source={props.item.image}/>
+        <Image style={styles.image} source={{uri: props.item.imageUrl}}/>
         <CourseScriptInfo item = {props.item}/>
     </TouchableOpacity>
 };

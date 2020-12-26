@@ -1,15 +1,18 @@
 import {getAllCourses} from "./courses-service";
+import axios from 'axios'
 
 export const getSearchHistory = () => {
     const searcheHistory =['Java', 'React Native', 'C++'];
     return searcheHistory;
 }
-export const getSearchResult = (searchString) => {
-    const allCourses = getAllCourses();
-    const result = allCourses.filter(item => {
-        const courseName = item.title.toUpperCase();
-        const text = searchString.toUpperCase();
-        return (courseName.indexOf(text) > -1);
-    });
+export const getSearchResult = async (keyword, token) => {
+    let result = []
+    await axios.post('http://api.dev.letstudy.org/course/searchV2', {
+        token: token,
+        keyword: keyword,
+        limit: 10,
+        offset: 0
+    }).then((res) => result = res.data.payload);
+
     return result;
 }

@@ -9,9 +9,9 @@ const ListAuthorsItem = (props) => {
         <Avatar 
         size="large"
         rounded
-        source={props.item.image}
+        source={{uri: props.item["user.avatar"]}}
         />
-        <Text style={styles.textName}>{props.item.name}</Text>
+        <Text style={styles.textName}>{props.item["user.name"]}</Text>
     </TouchableOpacity>
 };
 

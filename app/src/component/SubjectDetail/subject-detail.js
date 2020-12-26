@@ -11,33 +11,6 @@ export const SubjectDetail = (props) => {
   let title=props.route.params.title
   props.navigation.setOptions({title: title})
 
-  const paths=[
-    {
-      name: 'CompTIA CySA+ (CS0-002)',
-      coursesNum: 6,
-      image: {uri:'https://i.imgur.com/0bsNbxQ.jpg'}
-    },
-    {
-      name: 'Microsoft Azure Administrator (AZ-104)',
-      coursesNum: 20,
-      image: {uri:'https://i.imgur.com/qYugIdF.png'}
-    },
-    {
-      name: 'Working with REST API\'s in JavaScript',
-      coursesNum: 6,
-      image: {uri:'https://i.imgur.com/W8BRTmC.jpg'}
-    },
-    {
-      name: 'Core Python',
-      coursesNum: 15,
-      image: {uri:'https://i.imgur.com/x48JzSC.png'}
-    },
-    {
-      name: 'Building Web Applications with React',
-      coursesNum: 10,
-      image: {uri:'https://i.imgur.com/OyGbEAo.png'}
-    }
-   ]
    const authors=[
     {
       name: 'Deborah Kuata',
@@ -80,9 +53,6 @@ export const SubjectDetail = (props) => {
   return (
   <View>
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{marginVertical:10}}>
-        <SectionPaths title={`Path in ${title}`} paths={paths} navigation={props.navigation}/>
-      </View>
       <View style={{marginVertical:10}}>
         <SectionCourses title={`New in ${title}`} courses={allCourses} navigation={props.navigation}/>
       </View>
