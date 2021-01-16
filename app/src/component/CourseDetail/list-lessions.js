@@ -42,7 +42,7 @@ export const ListLessions = (props) => {
       headers: {Authorization: `Bearer ${authenContext.authenState.token}`}
     }).then((res) => {
       //props.navigation.push("CourseDetail"), {item: props.item.id, navigation: props.navigation}
-    })
+    }).catch((error) => console.log('Get courses: ', error))
   }
 
   if(props.item.section){

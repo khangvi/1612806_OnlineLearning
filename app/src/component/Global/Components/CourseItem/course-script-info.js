@@ -4,12 +4,12 @@ import { Rating } from 'react-native-elements';
 
 const CourseScriptInfo = (props) => {
     return <View style={{marginLeft: 5}} >
-      <Text style={styles.textTitle}>{props.item.title}</Text>
-      <Text style={styles.darkText}>{props.item["instructor.user.name"]}</Text>
-      <Text style={styles.darkText}>{props.item.requirement} . {props.item.createdAt.substr(0,10)} . {Math.round(props.item.totalHours)}{'(h)'}</Text>
+      <Text style={styles.textTitle}>{(props.item.title) ? props.item.title : props.item.courseTitle}</Text>
+      <Text style={styles.darkText}>{props.item["instructor.user.name"] ? props.item["instructor.user.name"] : props.item.instructorName}</Text>
+      <Text style={styles.darkText}>{props.item.requirement ? props.item.requirement: ''} . {props.item.createdAt ? props.item.createdAt.substr(0,10) : ''} . {props.item.totalHours ? Math.round(props.item.totalHours) : ''}{'(h)'}</Text>
       <View style={{flexDirection:'row', alignItems:'center'}}>
-        <Rating readonly={true} tintColor={styles.darkText} imageSize={12} startingValue={props.item.ratedNumber} />
-        <Text style={styles.darkText}>({props.item.price} đ)</Text>
+        <Rating readonly={true} tintColor={styles.darkText} imageSize={12} startingValue={props.item.ratedNumber ? props.item.ratedNumber : props.item.courseContentPoint} />
+        <Text style={styles.darkText}>({props.item.price ? props.item.price : props.item.coursePrice} đ)</Text>
       </View>   
   </View>
 };

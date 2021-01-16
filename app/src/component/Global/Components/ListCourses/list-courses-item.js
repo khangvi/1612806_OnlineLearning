@@ -2,19 +2,16 @@ import React from 'react';
 import { Text } from 'react-native';
 import {View, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import { Rating } from 'react-native-elements';
+import CourseScriptInfo from '../CourseItem/course-script-info';
 
 const ListCoursesItem = (props) => {
     return <TouchableOpacity style={styles.touch} onPress={()=> props.navigation.navigate("CourseDetail", {item:props.item})}>
-        <Image source={{uri: props.item.imageUrl}} style={styles.image}/>
-        <View style={{marginLeft: 5}} >
-            <Text style={styles.textTitle}>{props.item.title}</Text>
-            <Text style={styles.darkText}>{props.item.name}</Text>
-            <Text style={styles.darkText}>{props.item.requirement} . {Math.round(props.item.totalHours)}{'(h)'}</Text>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-                <Rating readonly={true} tintColor={styles.darkText} imageSize={12} startingValue={props.item.ratedNumber} />
-                <Text style={styles.darkText}>({props.item.price} đ)</Text>
-            </View>   
-        </View>
+        {
+            (props.item.imageUrl) ?
+            <Image style={styles.image} source={{uri: props.item.imageUrl}}/> :
+            <Image style={styles.image} source={{uri: props.item.courseImage}}/>
+        }
+        <CourseScriptInfo item = {props.item}/>
     </TouchableOpacity>
 };
 

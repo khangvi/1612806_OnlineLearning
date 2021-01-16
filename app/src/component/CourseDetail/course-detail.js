@@ -77,11 +77,11 @@ export const CourseDetail = (props) => {
     return(
       <ScrollView showsVerticalScrollIndicator={false} styles={{flex: 1}}>
           <View style={styles.infoContainer}>
-            <Text style={styles.textHeader}>{item.title}</Text>
-            <Text style={styles.textInfo}>{item["instructor.user.name"]}</Text>
+            <Text style={styles.textHeader}>{(item.title) ? item.title : item.courseTitle}</Text>
+            <Text style={styles.textInfo}>{item["instructor.user.name"] ? item["instructor.user.name"] : item.instructorName}</Text>
             <View style={{flexDirection:'row'}}>
-              <Text style={styles.textInfo}>{item.requirement} . {item.createdAt.substr(0,10)} . {item.totalHours}</Text>
-              <Rating style={{margin:5}} readonly={true} tintColor={styles.darkText} imageSize={12} startingValue={item.ratedNumber} />
+              <Text style={styles.textInfo}>{item.requirement ? item.requirement: ''} . {item.createdAt ? item.createdAt.substr(0,10) : ''} . {item.totalHours ? Math.round(item.totalHours) : ''}{'(h)'}</Text>
+              <Rating style={{margin:5}} readonly={true} tintColor={styles.darkText} imageSize={12} startingValue={item.ratedNumber ? item.ratedNumber : item.courseContentPoint}/>
               {/* <Text>({item.vote})</Text> */}
             </View>
           </View>
@@ -102,9 +102,9 @@ export const CourseDetail = (props) => {
           <View style={{margin: 10}}>
             <ViewMoreText numberOfLines={3} textStyle={{fontSize: 12}}>
               <Text style={{fontWeight:'bold'}}>Description: </Text>
-              <Text>{item.description}{'\n'}</Text>
+              <Text>{item.description ? item.description : ''} {'\n'}</Text>
               <Text style={{fontWeight:'bold'}}>Learning what: </Text>
-              {item.learnWhat.map((content) => <Text>{content}{'\n'}</Text>)}
+              {item.learnWhat ? item.learnWhat.map((content) => <Text>{content}{'\n'}</Text>): <Text></Text>}
             </ViewMoreText>
           </View>
           <View style={{height:50, backgroundColor: 'gray'}}>

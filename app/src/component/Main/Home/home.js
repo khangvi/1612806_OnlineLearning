@@ -50,10 +50,11 @@ const Home = (props) => {
     if(loading === false){
         return (       
             <ScrollView>
+              <SectionCourses title = 'Continue learning ' courses={continueCourses} navigation={props.navigation}/>
               <SectionCourses title = 'Top News ' courses={topNewCourses} navigation={props.navigation}/>
               <SectionCourses title = 'Best Seller' courses={topSellCourses} navigation={props.navigation}/>
               <SectionCourses title = 'Top Rated' courses={topRatedCourses} navigation={props.navigation}/>
-              <SectionCourses title = 'Bookmarks' courses={topNewCourses} navigation={props.navigation}/>
+              <SectionCourses title = 'Bookmarks' courses={bookmarkedCourses} navigation={props.navigation}/>
             </ScrollView>
             )
     } else {
