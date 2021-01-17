@@ -6,7 +6,7 @@ const SectionCourses = (props) => {
   return <View>
       <View style={styles.headerContainer}>
           <Text style = {styles.text}>{props.title}</Text>
-          <TouchableOpacity onPress={() => props.navigation.push("CourseList", {courses:props.courses, title:props.title})}>
+          <TouchableOpacity onPress={() => props.navigation.push("CourseList", {courses:props.courses, title:props.title, navigation:props.navigation})}>
             <Text style={{marginTop: 10, marginRight: 5, fontSize: 12}}> See all{` >`}</Text>
           </TouchableOpacity>
       </View>

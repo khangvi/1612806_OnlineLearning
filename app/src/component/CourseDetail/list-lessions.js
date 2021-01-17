@@ -2,7 +2,6 @@ import React from 'react';
 import { useContext } from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView} from 'react-native'
 import { AuthenticationContext } from '../../../App';
-import axios from 'axios'
 import { getLessonVideo } from '../../core/services/video-service';
 
 export const ListLessions = (props) => {
@@ -36,14 +35,7 @@ export const ListLessions = (props) => {
     </ScrollView>
     )
   }
-  const getCourse = () =>{
-    axios.post('http://api.dev.letstudy.org/payment/get-free-courses',{courseId: props.item.id},
-    {
-      headers: {Authorization: `Bearer ${authenContext.authenState.token}`}
-    }).then((res) => {
-      //props.navigation.push("CourseDetail"), {item: props.item.id, navigation: props.navigation}
-    }).catch((error) => console.log('Get courses: ', error))
-  }
+  
 
   if(props.item.section){
     return (
@@ -53,16 +45,7 @@ export const ListLessions = (props) => {
             }
       </View>
     )
-  } else{
-    return(
-      <View>
-        <TouchableOpacity style={styles.button} onPress={getCourse}>
-          <Text style={styles.txt}>Get it free!</Text>
-        </TouchableOpacity>
-      </View>
-    )
   }
-  
 };
 
 const styles = StyleSheet.create({

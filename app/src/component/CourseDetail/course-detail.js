@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, ScrollView, Image} from 'react-native'
+import {View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, Alert} from 'react-native'
 import ViewMoreText from 'react-native-view-more-text';
 import { ListLessions } from './list-lessions';
 import { Icon, Rating } from 'react-native-elements';
@@ -11,15 +11,18 @@ import YoutubePlayer from 'react-native-youtube-iframe'
 import { useRef } from 'react';
 import {Video} from 'expo-av'
 import getYoutubeID from 'get-youtube-id'
+import axios from 'axios'
+import { getLikeStatus, hitLikeCourse } from '../../core/services/user-service';
 
 export const CourseDetail = (props) => {
   const item=props.route.params.item
   const coursesContext=useContext(CoursesContext);
   const [bookmarkIcon, setBookmarkIcon] = useState(item.bookmarked === true ? 'bookmark' : 'bookmark-border')
   const [bookmarkText, setBookmarkText] = useState(item.bookmarked === true ? 'Bookmarked' : 'Bookmark')
+  const [bookmarkStatus, setBookmarkStatus] = useState('');
   const [downloadIcon, setDownloadIcon] = useState(item.downloaded === true ? 'cloud-done' : 'cloud-download')
   const [downloadText, setDownloadText] = useState(item.downloaded === true ? 'Downloaded' : 'Download')
-  const [courseDetail, setCourseDetail] = useState([]);
+  const [courseDetail, setCourseDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const authenContext = useContext(AuthenticationContext);
   const videoRef = useRef(null);
@@ -32,31 +35,43 @@ export const CourseDetail = (props) => {
       setCourseDetail(res);
       setLoading(false);
     })
+    getLikeStatus(item.id, authenContext.authenState.token).then(setBookmarkStatus)
   }, [])
+
+  useEffect(() =>{
+    if(bookmarkStatus){
+      setBookmarkIcon('bookmark')
+      setBookmarkText('bookmarked')
+    }
+    else{
+      setBookmarkIcon('bookmark-border')
+      setBookmarkText('bookmark')
+    }
+  }, [bookmarkStatus])
 
   useEffect(() =>{
     if((video.videoUrl !== '') && (video.videoUrl !== undefined) && (video.videoUrl !== null)){
       setIsYoutube(video.videoUrl.includes('youtube'))
     }
-  })
+  },[video])
 
   useEffect(() =>{
     if(video.videoUrl){
       setIsShowVideo(true);
     }
-  })
+  },[video])
 
   const changeBookmarkStatus = () => {
-    if(item.bookmarked === true){
-      item.bookmarked = false
-      //coursesContext.bookmarkedCourses.filter(i => i.id === item.id )
-      setBookmarkIcon('bookmark-border')
-      setBookmarkText('bookmark')
+    if(bookmarkStatus === true){
+      setBookmarkStatus(false)
+      hitLikeCourse(item.id, authenContext.authenState.token).then((res) =>{
+        coursesContext.setReload(coursesContext.reload + 1)
+      });
     }else{
-      item.bookmarked = true
-      coursesContext.bookmarkedCourses.push(item)
-      setBookmarkIcon('bookmark')
-      setBookmarkText('bookmarked')
+      setBookmarkStatus(true)
+      hitLikeCourse(item.id, authenContext.authenState.token).then((res) =>{
+        coursesContext.setReload(coursesContext.reload + 1)
+      });
     }
   }
 
@@ -115,32 +130,54 @@ export const CourseDetail = (props) => {
     )
   }
 
+  const getCourse = () =>{
+    axios.post('http://api.dev.letstudy.org/payment/get-free-courses', {courseId: item.id},
+    {
+      headers: {
+        Authorization: `Bearer ${authenContext.authenState.token}`}
+    }).then((res) => {
+      Alert.alert('Đăng ký khóa học thành công!!')
+      props.navigation.goBack();
+    }).catch((error) => console.log('Get courses: ', error))
+  }
+
   
   if(loading===false){
-    return (
-      <View style={{flex: 1}}>
-        {
-          isShowVideo ? 
-          (isYoutube ? 
-          <YoutubePlayer ref={videoRef}
-          height={250}
-          videoId={getYoutubeID(video.videoUrl)}
-          play={true}
-          /> : 
-          <Video source={{uri: video.videoUrl}}
-          rate={1.0} volume={1.0} isMuted={false} resizeMode="cover"
-          shouldPlay={true}
-          style={{height: 250}}
-          useNativeControls={true}
-          progressUpdateIntervalMillis={5000}
-          />)
-          : (
-            <Image source={{uri: courseDetail.imageUrl}} style={styles.videoPlayer}/>
-          )
-        } 
-        {renderContentView()}       
-      </View>
-    )
+    if(courseDetail.length !== 0){
+      return (
+        <View style={{flex: 1}}>
+          {
+            isShowVideo ? 
+            (isYoutube ? 
+            <YoutubePlayer ref={videoRef}
+            height={250}
+            videoId={getYoutubeID(video.videoUrl)}
+            play={true}
+            /> : 
+            <Video source={{uri: video.videoUrl}}
+            rate={1.0} volume={1.0} isMuted={false} resizeMode="cover"
+            shouldPlay={true}
+            style={{height: 250}}
+            useNativeControls={true}
+            progressUpdateIntervalMillis={5000}
+            />)
+            : (
+              <Image source={{uri: courseDetail.imageUrl}} style={styles.videoPlayer}/>
+            )
+          } 
+          {renderContentView()}       
+        </View>
+      )
+    }
+    else{
+      return(
+        <View>
+          <TouchableOpacity style={styles.button} onPress={getCourse}>
+            <Text style={styles.txt}>Get it free!</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
   } else{
     return(
       <View>
@@ -169,6 +206,18 @@ const styles = StyleSheet.create({
   iconButtonContainer: {
     flexDirection: 'row',
     justifyContent: "space-around"
+  },
+  button:{
+    height: 30,
+    backgroundColor: '#3faee0',
+    padding: 5,
+    margin: 30,
+    borderRadius: 5
+  },
+  txt:{
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white'
   }
 })
 

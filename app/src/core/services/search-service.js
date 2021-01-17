@@ -1,10 +1,6 @@
 import {getAllCourses} from "./courses-service";
 import axios from 'axios'
 
-export const getSearchHistory = () => {
-    const searcheHistory =['Java', 'React Native', 'C++'];
-    return searcheHistory;
-}
 export const getSearchResult = async (keyword, token) => {
     let result = []
     await axios.post('http://api.dev.letstudy.org/course/searchV2', {
@@ -15,4 +11,22 @@ export const getSearchResult = async (keyword, token) => {
     }).then((res) => result = res.data.payload);
 
     return result;
+}
+
+export const getSearchHistory = async (token) =>{
+    let historyList = []
+    await axios.get('http://api.dev.letstudy.org/course/search-history',{
+        headers: {Authorization: `Bearer ${token}`}
+    })
+    .then((res) => historyList = (res.data.payload.data))
+    .catch((error) => console.log('Get search history: ', error))
+
+    return historyList;
+}
+
+export const deleteHistory = async (id, token) => {
+    await axios.delete(`http://api.dev.letstudy.org/course/delete-search-history/${id}`,{
+        headers: {Authorization: `Bearer ${token}`}
+    })
+    .catch((error) => console.log(error))
 }

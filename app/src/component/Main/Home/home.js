@@ -6,13 +6,14 @@ import {StyleSheet, ScrollView, View} from 'react-native'
 import { Avatar, Icon } from 'react-native-elements';
 import { AuthenticationContext, CoursesContext, UserAvatarContext, UserProfileContext } from '../../../../App';
 import { getBookmarkedCourses, getContinueCourses, getTopNewCourses, getTopRateCourses, getTopSellCourses } from '../../../core/services/courses-service';
+import { getSearchHistoryy } from '../../../core/services/search-service';
 import SectionCourses from '../../Global/Components/SectionCourses/section-courses';
 
 const Home = (props) => {
 
     const authenContext = useContext(AuthenticationContext);
     const coursesContext = useContext(CoursesContext);
-    const courseList = coursesContext.allCourses;
+    //let reload = coursesContext.reload;
     const [topNewCourses, setTopNewCourses] = useState([])
     const userAvatarContext = useContext(UserAvatarContext);
     const [topSellCourses, setTopSellCourses] = useState([]);
@@ -20,6 +21,7 @@ const Home = (props) => {
     const [loading, setLoading] = useState(true);
     const [continueCourses, setContinueCourses] = useState([]);
     const [topRatedCourses, setTopRatedCourses] = useState([]);
+
 
     props.navigation.setOptions({
         //headerStyle: {backgroundColor: theme.background},
@@ -39,13 +41,19 @@ const Home = (props) => {
         getTopRateCourses().then(setTopRatedCourses);
         getContinueCourses(authenContext.authenState.token).then(setContinueCourses)
         getBookmarkedCourses(authenContext.authenState.token).then(setBookmarkedCourses);
-    }, []) 
+    }, [])
+    
+    useEffect(() => {
+        if(authenContext.authenState.token !== null){
+            getBookmarkedCourses(authenContext.authenState.token).then(setBookmarkedCourses);
+        }
+    }, [coursesContext.reload]) 
 
     useEffect(() =>{
-        if(bookmarkedCourses.length!==0){
+        if(bookmarkedCourses.length!==0 && topRatedCourses.length !== 0 && topNewCourses.length !== 0){
             setLoading(false)
         }
-    })
+    }, [bookmarkedCourses, topRatedCourses, topNewCourses])
 
     if(loading === false){
         return (       

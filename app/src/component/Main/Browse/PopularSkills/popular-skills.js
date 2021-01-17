@@ -7,7 +7,7 @@ const PopularSkills = (props) => {
         <Text style={styles.text}>Category</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {
-            props.categories.map(skill => <TextButton title={skill.name} navigation = {props.navigation}/>)
+            props.categories.map(skill => <TextButton title={skill.name} navigation = {props.navigation} id={skill.id}/>)
             }
         </ScrollView>
     </View>

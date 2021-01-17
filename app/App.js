@@ -23,6 +23,7 @@ import { login, logout } from './src/core/services/authen-service';
 import { useEffect } from 'react';
 import { ForgotPassword } from './src/component/Authentication/forgot-password';
 import { ChangePassword } from './src/component/Authentication/change-password';
+import { SubjectDetail } from './src/component/SubjectDetail/subject-detail';
 
 const Tab = createBottomTabNavigator();
 const screenStack = createStackNavigator();
@@ -35,7 +36,7 @@ const browseStack = () => {
           <screenStack.Screen name={"CourseList"} component={ListCourses}/>
           <screenStack.Screen name={"AuthorDetail"} component={AuthorDetail}/>
           <screenStack.Screen name={"CourseDetail"} component={CourseDetail}/>
-          <screenStack.Screen name={"PathDetail"} component={PathDetail}/>
+          <screenStack.Screen name={"SubjectDetail"} component={SubjectDetail}/>
           <screenStack.Screen name={"ChangePassword"} component={ChangePassword}/>
           <screenStack.Screen name={"Profile"} component={Profile}/>
       </screenStack.Navigator>
@@ -123,6 +124,7 @@ export default function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [userAvatar, setUserAvatar] = useState('');
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     if(authenState.userInfo !== null) {
@@ -134,7 +136,7 @@ export default function App() {
     <UserAvatarContext.Provider value={{userAvatar, setUserAvatar}}>
       <AuthenticationContext.Provider value={{authenState, login: login(dispatch), logout: logout(dispatch)}}>
         <UserProfileContext.Provider value={{ userProfile, setUserProfile, isSignedIn, setIsSignedIn, setIsLoading}}>
-          <CoursesContext.Provider value={{allCourses, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
+          <CoursesContext.Provider value={{reload, setReload, allCourses, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
             <NavigationContainer>
               {isLoading ? (
                 <SplashScreen/>
