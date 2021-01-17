@@ -10,9 +10,6 @@ import ListAuthors from '../../Global/Components/ListAuthors/list-authors';
 import PopularSkills from './PopularSkills/popular-skills';
 
 const Browse = (props) => {
-
-  const coursesContext=useContext(CoursesContext);
-  const allCourses=coursesContext.allCourses;
   const userAvatarContext = useContext(UserAvatarContext);
   const [authors, setAuthors] = useState([]);
   const [newCourses, setNewCourses] = useState([]);

@@ -104,11 +104,7 @@ export const CourseDetail = (props) => {
             <TouchableOpacity onPress={changeBookmarkStatus}>
               <Icon name={bookmarkIcon} type={'material-icons'} size={30}/>
               <Text>{bookmarkText}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon name={'add-to-queue'} type={'material-icons'} size={30}/>
-              <Text>Add to Channel</Text>
-            </TouchableOpacity>    
+            </TouchableOpacity>  
             <TouchableOpacity onPress={changeDownloadStatus}>
               <Icon name={downloadIcon} type={'material-icons'} size={30}/>
               <Text>{downloadText}</Text>

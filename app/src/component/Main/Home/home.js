@@ -10,10 +10,8 @@ import { getSearchHistoryy } from '../../../core/services/search-service';
 import SectionCourses from '../../Global/Components/SectionCourses/section-courses';
 
 const Home = (props) => {
-
     const authenContext = useContext(AuthenticationContext);
     const coursesContext = useContext(CoursesContext);
-    //let reload = coursesContext.reload;
     const [topNewCourses, setTopNewCourses] = useState([])
     const userAvatarContext = useContext(UserAvatarContext);
     const [topSellCourses, setTopSellCourses] = useState([]);
@@ -24,8 +22,6 @@ const Home = (props) => {
 
 
     props.navigation.setOptions({
-        //headerStyle: {backgroundColor: theme.background},
-        //headerTitleStyle: {color: theme.foreground},
         headerRight: () => (
             <View style={{flexDirection: 'row'}}>
                 <Avatar rounded={true} source={{uri: userAvatarContext.userAvatar}} size={'small'}
@@ -50,10 +46,10 @@ const Home = (props) => {
     }, [coursesContext.reload]) 
 
     useEffect(() =>{
-        if(bookmarkedCourses.length!==0 && topRatedCourses.length !== 0 && topNewCourses.length !== 0){
+        if(continueCourses.length !==0){
             setLoading(false)
         }
-    }, [bookmarkedCourses, topRatedCourses, topNewCourses])
+    }, [continueCourses])
 
     if(loading === false){
         return (       

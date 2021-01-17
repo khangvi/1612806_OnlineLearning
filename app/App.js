@@ -11,7 +11,6 @@ import Search from './src/component/Main/Search/search';
 import ListCourses from './src/component/Global/Components/ListCourses/list-courses';
 import {CourseDetail} from "./src/component/CourseDetail/course-detail";
 import { AuthorDetail } from './src/component/AuthorDetail/author-detail';
-import { PathDetail } from './src/component/PathDetail/path-detail';
 import { getAllCourses, getBookmarkedCourses, getDownloadedCourses } from './src/core/services/courses-service';
 import Login from './src/component/Authentication/login';
 import { SplashScreen } from './src/component/SplashScreen/splash-screen';
@@ -118,7 +117,6 @@ const initAuthenState = {
 export default function App() {
   const [authenState, dispatch] = useReducer(reducer, initAuthenState);
   const [userProfile, setUserProfile] = useState(null);
-  const [allCourses, setAllCourses]=useState(getAllCourses);
   const [downloadedCourses, setDownloadedCourses]=useState(getDownloadedCourses);
   const [bookmarkedCourses, setBookmarkedCourses]=useState(getBookmarkedCourses);
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -136,7 +134,7 @@ export default function App() {
     <UserAvatarContext.Provider value={{userAvatar, setUserAvatar}}>
       <AuthenticationContext.Provider value={{authenState, login: login(dispatch), logout: logout(dispatch)}}>
         <UserProfileContext.Provider value={{ userProfile, setUserProfile, isSignedIn, setIsSignedIn, setIsLoading}}>
-          <CoursesContext.Provider value={{reload, setReload, allCourses, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
+          <CoursesContext.Provider value={{reload, setReload, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
             <NavigationContainer>
               {isLoading ? (
                 <SplashScreen/>
