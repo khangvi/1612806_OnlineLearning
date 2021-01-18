@@ -64,9 +64,9 @@ const Search = (props) => {
       return (
         <ScrollView>
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={{margin: 5, fontWeight: 'bold', fontSize: 17}}>History search</Text>
+            <Text style={{margin: 5, fontWeight: 'bold', fontSize: 17}}>Recent searches</Text>
             <TouchableOpacity style={{margin: 5}} >
-              <Text style={{color: 'red', fontSize: 17}} onPress={() => deleteAllHistory()}>Clear all</Text>
+              <Text style={{color: 'red', fontSize: 17}} onPress={() => deleteAllHistory()}>CLEAR ALL</Text>
             </TouchableOpacity>
           </View>
           {searchHistory.map(item => 
