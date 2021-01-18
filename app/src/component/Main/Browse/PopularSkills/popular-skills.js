@@ -4,7 +4,7 @@ import TextButton from '../../../Common/text-button';
 
 const PopularSkills = (props) => {
     return <View style={styles.container}>
-        <Text style={styles.text}>Category</Text>
+        <Text style={styles.text}>{props.title}</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {
             props.categories.map(skill => <TextButton title={skill.name} navigation = {props.navigation} id={skill.id}/>)

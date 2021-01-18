@@ -16,3 +16,14 @@ export const getLikeStatus = async (id, token) => {
 
     return status;
 }
+
+export const updateProfile = async (name, avatar, phone, token) => {
+    await axios.put('http://api.dev.letstudy.org/user/update-profile',{
+        name: name,
+        avatar: avatar,
+        phone: phone
+    },{
+        headers: {Authorization: `Bearer ${token}`}
+    }).then()
+    .catch((error) => console.log('Update profile: ', error))
+}

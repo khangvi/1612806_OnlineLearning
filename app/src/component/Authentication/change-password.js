@@ -6,7 +6,7 @@ import { TextInput } from 'react-native'
 import { StyleSheet } from 'react-native'
 import { Text } from 'react-native'
 import { ScrollView } from 'react-native'
-import { AuthenticationContext } from '../../../App'
+import { AuthenticationContext, LanguageContext } from '../../../App'
 import axios from 'axios'
 
 export const ChangePassword = (props) => {
@@ -15,44 +15,74 @@ export const ChangePassword = (props) => {
     const [confirmPass, setConfirmPass] = useState('');
     const [message, setMessage] = useState('');
     const authenContext = useContext(AuthenticationContext);
+    const languageContext = useContext(LanguageContext);
+    const language = languageContext.language;
+
+    props.navigation.setOptions({
+        title: (language === 'eng') ? 'Change password' : 'Đổi mật khẩu'
+    })
 
     const changePassPress = () =>{
         const validPassword = (/^.{8,20}$/).test(newPass);
         if(validPassword===false){
-            setMessage('New password must have 8 - 20 characters');
+            if(language === 'eng'){
+                setMessage('New password must have 8 - 20 characters!');
+            }
+            else{
+                setMessage('Mật khẩu mới phải có 8 - 20 ký tự!');
+            }
         }
         else if(newPass !== confirmPass){
-            setMessage('New password and corfirm password do not match')
+            if(language === 'eng'){
+                setMessage('New password and corfirm password do not match!')
+            }
+            else{
+                setMessage('Mật khẩu mới và mật khẩu xác nhận phải giống nhau!')
+            }
         } else {
             axios.post('http://api.dev.letstudy.org/user/change-password', {
                 id: authenContext.authenState.userInfo.id,
                 oldPass: oldPass,
                 newPass: newPass
             }, {headers: {Authorization: `Bearer ${authenContext.authenState.token}`}})
-            .then((res) => setMessage('Change password successfully!'))
-            .catch((error) => setMessage('Incorrect old pass, please try again!'))
+            .then((res) => {
+                if(language === 'eng'){
+                    setMessage('Change password successfully!')
+                }
+                else{
+                    setMessage('Đổi mật khẩu thành công!')
+                }
+                })
+            .catch((error) => {
+                if(language === 'eng'){
+                    setMessage('Incorrect old pass, please try again!')
+                }
+                else{
+                    setMessage('Mật khẩu hiện tại sai, vui lòng thử lại!')
+                }
+                })
         }
     }
 
     return  (
         <ScrollView>
-            <Text style={styles.title}>Change Password</Text>
+            {(language === 'eng') ? <Text style={styles.title}>Change Password</Text> : <Text style={styles.title}>Đổi mật khẩu</Text>}
             <TextInput style={styles.input}
-                       placeholder="Old password"
+                       placeholder={(language === 'eng') ? "Old password" : "Mật khẩu hiện tại"}
                        placeholderTextColor="gray"
                        onChangeText={(txt) => setOldPass(txt)}
                        defaultValue={oldPass}
                        secureTextEntry={true}
                        />
             <TextInput style={styles.input}
-                       placeholder="New password"
+                       placeholder={(language === 'eng') ? "New password" : "Mật khẩu mới"}
                        placeholderTextColor="gray"
                        onChangeText={(txt) => setNewPass(txt)}
                        defaultValue={newPass}
                        secureTextEntry={true}
                        />
             <TextInput style={styles.input}
-                       placeholder="Confirm password"
+                       placeholder={(language === 'eng') ? "Confirm password" : "Mật khẩu xác nhận"}
                        placeholderTextColor="gray"
                        onChangeText={(txt) => setConfirmPass(txt)}
                        defaultValue={confirmPass}
@@ -60,7 +90,7 @@ export const ChangePassword = (props) => {
                        />
             <Text style={{color: 'red', marginLeft: 20}}>{message}</Text>           
             <TouchableOpacity style={styles.touch} onPress={changePassPress}>
-                <Text style={styles.textButton}>Change</Text>
+                {(language === 'eng') ? <Text style={styles.textButton}>Change</Text> :<Text style={styles.textButton}>Thay đổi</Text>}
             </TouchableOpacity>                      
         </ScrollView>
     )

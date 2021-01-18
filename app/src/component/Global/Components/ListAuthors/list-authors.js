@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView} from 'react-native'
+import {View, StyleSheet, Text, ScrollView} from 'react-native'
 import ListAuthorsItem from '../ListAuthorsItem/list-authors-item';
 
 //props: title, authors: list of author

@@ -11,7 +11,6 @@ import Search from './src/component/Main/Search/search';
 import ListCourses from './src/component/Global/Components/ListCourses/list-courses';
 import {CourseDetail} from "./src/component/CourseDetail/course-detail";
 import { AuthorDetail } from './src/component/AuthorDetail/author-detail';
-import { getAllCourses, getBookmarkedCourses, getDownloadedCourses } from './src/core/services/courses-service';
 import Login from './src/component/Authentication/login';
 import { SplashScreen } from './src/component/SplashScreen/splash-screen';
 import { Profile } from './src/component/Account/profile';
@@ -23,7 +22,8 @@ import { useEffect } from 'react';
 import { ForgotPassword } from './src/component/Authentication/forgot-password';
 import { ChangePassword } from './src/component/Authentication/change-password';
 import { SubjectDetail } from './src/component/SubjectDetail/subject-detail';
-import { SafeAreaView } from 'react-native';
+import { ChangeProfile } from './src/component/Account/change-profile';
+import { Setting } from './src/component/Common/setting';
 
 const Tab = createBottomTabNavigator();
 const screenStack = createStackNavigator();
@@ -39,6 +39,8 @@ const browseStack = () => {
           <screenStack.Screen name={"SubjectDetail"} component={SubjectDetail}/>
           <screenStack.Screen name={"ChangePassword"} component={ChangePassword}/>
           <screenStack.Screen name={"Profile"} component={Profile}/>
+          <screenStack.Screen name={"ChangeProfile"} component={ChangeProfile}/>
+          <screenStack.Screen name={"Setting"} component={Setting}/>
       </screenStack.Navigator>
   );
 };
@@ -51,6 +53,9 @@ const homeStack = () => {
         <screenStack.Screen name={"CourseList"} component={ListCourses}/>
         <screenStack.Screen name={"Profile"} component={Profile}/>
         <screenStack.Screen name={"ChangePassword"} component={ChangePassword}/>
+        <screenStack.Screen name={"ChangeProfile"} component={ChangeProfile}/>
+        <screenStack.Screen name={"AuthorDetail"} component={AuthorDetail}/>
+        <screenStack.Screen name={"Setting"} component={Setting}/>
       </screenStack.Navigator>
   );
 };
@@ -107,6 +112,7 @@ export const CoursesContext = createContext();
 export const UserProfileContext = createContext();
 export const AuthenticationContext = createContext();
 export const UserAvatarContext = createContext();
+export const LanguageContext = createContext();
 
 const initAuthenState = {
   isAuthenticated: false,
@@ -118,12 +124,11 @@ const initAuthenState = {
 export default function App() {
   const [authenState, dispatch] = useReducer(reducer, initAuthenState);
   const [userProfile, setUserProfile] = useState(null);
-  const [downloadedCourses, setDownloadedCourses]=useState(getDownloadedCourses);
-  const [bookmarkedCourses, setBookmarkedCourses]=useState(getBookmarkedCourses);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [userAvatar, setUserAvatar] = useState('');
   const [reload, setReload] = useState(0);
+  const [language, setLanguage] = useState('eng');
 
   useEffect(() => {
     if(authenState.userInfo !== null) {
@@ -132,10 +137,11 @@ export default function App() {
   }, [authenState.userInfo])
 
   return (
+    <LanguageContext.Provider value={{language, setLanguage}}>
       <UserAvatarContext.Provider value={{userAvatar, setUserAvatar}}>
         <AuthenticationContext.Provider value={{authenState, login: login(dispatch), logout: logout(dispatch)}}>
           <UserProfileContext.Provider value={{ userProfile, setUserProfile, isSignedIn, setIsSignedIn, setIsLoading}}>
-            <CoursesContext.Provider value={{reload, setReload, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
+            <CoursesContext.Provider value={{reload, setReload}} >
               <NavigationContainer>
                 {isLoading ? (
                   <SplashScreen/>
@@ -151,6 +157,7 @@ export default function App() {
           </UserProfileContext.Provider>
         </AuthenticationContext.Provider>
       </UserAvatarContext.Provider>    
+    </LanguageContext.Provider>
   )
 }
 

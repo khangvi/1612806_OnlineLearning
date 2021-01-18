@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import {View, StyleSheet, TextInput, ScrollView} from 'react-native'
-import { CoursesContext } from '../../../App';
+import {View, ScrollView} from 'react-native'
 import { getCategoryCourses } from '../../core/services/category-service';
 import SectionCourses from '../Global/Components/SectionCourses/section-courses';
 
 export const SubjectDetail = (props) => {
-  const coursesContext=useContext(CoursesContext);
   let title=props.route.params.title
   let id=props.route.params.id
   props.navigation.setOptions({title: title})

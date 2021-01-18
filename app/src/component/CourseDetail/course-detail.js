@@ -3,7 +3,7 @@ import {View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, Alert} from
 import ViewMoreText from 'react-native-view-more-text';
 import { ListLessions } from './list-lessions';
 import { Icon, Rating } from 'react-native-elements';
-import { AuthenticationContext, CoursesContext } from '../../../App';
+import { AuthenticationContext, CoursesContext, LanguageContext } from '../../../App';
 import { useEffect } from 'react';
 import { getCourseDetail } from '../../core/services/courses-service';
 import { ActivityIndicator } from 'react-native';
@@ -25,10 +25,16 @@ export const CourseDetail = (props) => {
   const [courseDetail, setCourseDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const authenContext = useContext(AuthenticationContext);
+  const languageContext = useContext(LanguageContext);
+  const language = languageContext.language;
   const videoRef = useRef(null);
   const [video, setVideo] = useState([]);
   const [isYoutube, setIsYoutube] = useState(false);
   const [isShowVideo, setIsShowVideo] = useState(false);
+
+  props.navigation.setOptions({
+    title: (language === 'eng') ? 'Course detail' : 'Thông tin khóa học'
+  })
 
   useEffect(() => {
     getCourseDetail(item.id, authenContext.authenState.token).then((res) => {
@@ -82,7 +88,6 @@ export const CourseDetail = (props) => {
       setDownloadText('Download')
     }else{
       item.downloaded = true
-      coursesContext.downloadedCourses.push(item)
       setDownloadIcon('cloud-done')
       setDownloadText('Downloaded')
     }
@@ -119,7 +124,8 @@ export const CourseDetail = (props) => {
             </ViewMoreText>
           </View>
           <View style={{height:50, backgroundColor: 'gray'}}>
-            <Text style={{textAlign:'center', padding: 10, fontWeight: 'bold', fontSize: 20}}>Content</Text> 
+            {(language === 'eng') ? <Text style={{textAlign:'center', padding: 10, fontWeight: 'bold', fontSize: 20}}>Content</Text> :
+            <Text style={{textAlign:'center', padding: 10, fontWeight: 'bold', fontSize: 20}}>Nội dung</Text>}
           </View>
           <ListLessions item={courseDetail} setVideo={setVideo}/>
         </ScrollView>
@@ -169,7 +175,8 @@ export const CourseDetail = (props) => {
       return(
         <View>
           <TouchableOpacity style={styles.button} onPress={getCourse}>
-            <Text style={styles.txt}>Get it free!</Text>
+            {(language === 'eng') ? <Text style={styles.txt}>Get it free!</Text> :<Text style={styles.txt}>Đăng ký miễn phí!</Text>} 
+            
           </TouchableOpacity>
         </View>
       )

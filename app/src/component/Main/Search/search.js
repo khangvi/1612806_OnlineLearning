@@ -5,7 +5,7 @@ import { KeyboardAvoidingView } from 'react-native';
 import { ActivityIndicator } from 'react-native';
 import {View, StyleSheet, TextInput, FlatList, TouchableOpacity, Text, ScrollView} from 'react-native'
 import { Icon, SearchBar } from 'react-native-elements';
-import { AuthenticationContext } from '../../../../App';
+import { AuthenticationContext, LanguageContext } from '../../../../App';
 import { deleteHistory, getSearchHistory, getSearchResult } from '../../../core/services/search-service';
 import ListCourses from '../../Global/Components/ListCourses/list-courses';
 
@@ -14,6 +14,8 @@ const Search = (props) => {
   const [searchHistory, setSearchHisory] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const authenContext=useContext(AuthenticationContext);
+  const languageContext=useContext(LanguageContext);
+  const language = languageContext.language;
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState('');
   const [searching, setSearching] = useState(false);
@@ -64,9 +66,9 @@ const Search = (props) => {
       return (
         <ScrollView>
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={{margin: 5, fontWeight: 'bold', fontSize: 17}}>Recent searches</Text>
+            {(language === 'eng') ? <Text style={{margin: 5, fontWeight: 'bold', fontSize: 17}}>Recent searches</Text> :<Text style={{margin: 5, fontWeight: 'bold', fontSize: 17}}>Lịch sử tìm kiếm</Text>}
             <TouchableOpacity style={{margin: 5}} >
-              <Text style={{color: 'red', fontSize: 17}} onPress={() => deleteAllHistory()}>CLEAR ALL</Text>
+              {(language === 'eng') ? <Text style={{color: 'red', fontSize: 17}} onPress={() => deleteAllHistory()}>CLEAR ALL</Text> : <Text style={{color: 'red', fontSize: 17}} onPress={() => deleteAllHistory()}>XÓA TẤT CẢ</Text>}
             </TouchableOpacity>
           </View>
           {searchHistory.map(item => 
@@ -100,7 +102,7 @@ const Search = (props) => {
   return (
     <KeyboardAvoidingView>
       <View style={styles.container}>
-      <SearchBar placeholder={'Search...'}
+      <SearchBar placeholder={(language === 'eng') ? "Search..." : "Tìm kiếm..."}
                  onChangeText={(text) => setContent(text)}
                  value={content}
                  onSubmitEditing={enterSearch}

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
-import {View, StyleSheet, TouchableOpacity, Image} from 'react-native'
-import { Rating } from 'react-native-elements';
+import { StyleSheet, TouchableOpacity, Image} from 'react-native'
 import CourseScriptInfo from '../CourseItem/course-script-info';
 
 const ListCoursesItem = (props) => {
