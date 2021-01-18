@@ -175,10 +175,8 @@ export const CourseDetail = (props) => {
       )
     }
   } else{
-    return(
-      <View>
-      <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignContent: 'center'}}/>
-      </View>
+    return(   
+      <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignContent: 'center', justifyContent: 'center'}}/>
     )
   }
 };

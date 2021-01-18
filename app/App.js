@@ -23,6 +23,7 @@ import { useEffect } from 'react';
 import { ForgotPassword } from './src/component/Authentication/forgot-password';
 import { ChangePassword } from './src/component/Authentication/change-password';
 import { SubjectDetail } from './src/component/SubjectDetail/subject-detail';
+import { SafeAreaView } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const screenStack = createStackNavigator();
@@ -131,27 +132,25 @@ export default function App() {
   }, [authenState.userInfo])
 
   return (
-    <UserAvatarContext.Provider value={{userAvatar, setUserAvatar}}>
-      <AuthenticationContext.Provider value={{authenState, login: login(dispatch), logout: logout(dispatch)}}>
-        <UserProfileContext.Provider value={{ userProfile, setUserProfile, isSignedIn, setIsSignedIn, setIsLoading}}>
-          <CoursesContext.Provider value={{reload, setReload, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
-            <NavigationContainer>
-              {isLoading ? (
-                <SplashScreen/>
-              ) : (
-                authenState.isAuthenticated ? (
-                  <MainTabNavigation/>
+      <UserAvatarContext.Provider value={{userAvatar, setUserAvatar}}>
+        <AuthenticationContext.Provider value={{authenState, login: login(dispatch), logout: logout(dispatch)}}>
+          <UserProfileContext.Provider value={{ userProfile, setUserProfile, isSignedIn, setIsSignedIn, setIsLoading}}>
+            <CoursesContext.Provider value={{reload, setReload, downloadedCourses, setDownloadedCourses, bookmarkedCourses, setBookmarkedCourses}} >
+              <NavigationContainer>
+                {isLoading ? (
+                  <SplashScreen/>
                 ) : (
-                  <LoginStack/>
-                )
-              )}
-        </NavigationContainer>
-      </CoursesContext.Provider>
-     </UserProfileContext.Provider>
-    </AuthenticationContext.Provider>
-    </UserAvatarContext.Provider>
-    
-      
+                  authenState.isAuthenticated ? (
+                    <MainTabNavigation/>
+                  ) : (
+                    <LoginStack/>
+                  )
+                )}
+              </NavigationContainer>
+            </CoursesContext.Provider>
+          </UserProfileContext.Provider>
+        </AuthenticationContext.Provider>
+      </UserAvatarContext.Provider>    
   )
 }
 
