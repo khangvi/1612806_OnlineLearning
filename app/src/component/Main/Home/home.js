@@ -47,10 +47,10 @@ const Home = (props) => {
     }, [coursesContext.reload]) 
 
     useEffect(() =>{
-        if(continueCourses.length !==0){
+        if(topNewCourses.length !==0 && topRatedCourses.length !==0 && topSellCourses.length !==0){
             setLoading(false)
         }
-    }, [continueCourses])
+    }, [topNewCourses, topRatedCourses, topSellCourses])
 
     if(loading === false){
         return (       

@@ -38,13 +38,13 @@ const Browse = (props) => {
   return( 
   <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
     <ImageBackground style={styles.image} source={require('../../../../assets/new_release_theme.jpg')}>
-      <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {title:"NEW RELESAE", courses: newCourses, navigation: props.navigation})}>
+      <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {title:(language === 'eng') ? "NEW RELESAE" : "KHÓA HỌC MỚI", courses: newCourses, navigation: props.navigation})}>
         {(language === 'eng') ? <Text style={styles.text}>{`NEW\nRELEASE`}</Text> :<Text style={styles.text}>{`KHÓA HỌC\nMỚI`}</Text>}
       </TouchableOpacity>    
     </ImageBackground>
 
     <ImageBackground style={styles.image} source={require('../../../../assets/recommended.jpg')}>
-      <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {title:"RECOMMENDED FOR YOU", courses: newCourses, navigation: props.navigation})}>
+      <TouchableOpacity uchableOpacity style={styles.touch} onPress={() => props.navigation.push("CourseList", {title:(language === 'eng') ? "RECOMMENDED FOR YOU" : "KHÓA HỌC DÀNH CHO BẠN", courses: newCourses, navigation: props.navigation})}>
         {(language === 'eng') ? <Text style={styles.text}>{`RECOMMENDED\nFOR YOU`}</Text> :<Text style={styles.text}>{`KHÓA HỌC\nDÀNH CHO BẠN`}</Text>}
       </TouchableOpacity>    
     </ImageBackground>

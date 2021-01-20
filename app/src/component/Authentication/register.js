@@ -52,13 +52,15 @@ export const Register = (props) => {
                       placeholder='Password'
                       placeholderTextColor='gray'
                       onChangeText={(password) => setInputState({...inputState, password: password})}
-                      defaultValue={inputState.password}>
+                      defaultValue={inputState.password}
+                      secureTextEntry={true}>
           </TextInput>
           <TextInput style={styles.input}
                       placeholder='Corfirm password'
                       placeholderTextColor='gray'
                       onChangeText={(confirmPassword) => setInputState({...inputState, confirmPassword: confirmPassword})}
-                      defaultValue={inputState.confirmPassword}>
+                      defaultValue={inputState.confirmPassword}
+                      secureTextEntry={true}>
           </TextInput>
           <TextInput style={styles.input}
                       placeholder='Phone number'

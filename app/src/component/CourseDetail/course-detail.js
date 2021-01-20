@@ -13,6 +13,8 @@ import {Video} from 'expo-av'
 import getYoutubeID from 'get-youtube-id'
 import axios from 'axios'
 import { getLikeStatus, hitLikeCourse } from '../../core/services/user-service';
+import { getLastWatchedVideo, setFinishVideo, setTimeVideo } from '../../core/services/video-service';
+import { reducer } from '../../core/reducers/authen-reducer';
 
 export const CourseDetail = (props) => {
   const item=props.route.params.item
@@ -20,8 +22,6 @@ export const CourseDetail = (props) => {
   const [bookmarkIcon, setBookmarkIcon] = useState(item.bookmarked === true ? 'bookmark' : 'bookmark-border')
   const [bookmarkText, setBookmarkText] = useState(item.bookmarked === true ? 'Bookmarked' : 'Bookmark')
   const [bookmarkStatus, setBookmarkStatus] = useState('');
-  const [downloadIcon, setDownloadIcon] = useState(item.downloaded === true ? 'cloud-done' : 'cloud-download')
-  const [downloadText, setDownloadText] = useState(item.downloaded === true ? 'Downloaded' : 'Download')
   const [courseDetail, setCourseDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const authenContext = useContext(AuthenticationContext);
@@ -31,6 +31,7 @@ export const CourseDetail = (props) => {
   const [video, setVideo] = useState([]);
   const [isYoutube, setIsYoutube] = useState(false);
   const [isShowVideo, setIsShowVideo] = useState(false);
+  const [currentLessonId, setCurrentLessonId] = useState([]);
 
   props.navigation.setOptions({
     title: (language === 'eng') ? 'Course detail' : 'Thông tin khóa học'
@@ -43,6 +44,17 @@ export const CourseDetail = (props) => {
     })
     getLikeStatus(item.id, authenContext.authenState.token).then(setBookmarkStatus)
   }, [])
+
+  useEffect(() => {
+    if(courseDetail !== null && courseDetail !== undefined) {
+      getLastWatchedVideo(courseDetail.id, authenContext.authenState.token).then((res) => {
+        if(res.length !== 0){
+          setCurrentLessonId(res.lessonId);
+          setVideo(res.video);
+        }
+      })
+    }
+  }, [courseDetail])
 
   useEffect(() =>{
     if(bookmarkStatus){
@@ -62,7 +74,7 @@ export const CourseDetail = (props) => {
   },[video])
 
   useEffect(() =>{
-    if(video.videoUrl){
+    if(video.videoUrl !== undefined && video.videoUrl !== null){
       setIsShowVideo(true);
     }
   },[video])
@@ -81,15 +93,36 @@ export const CourseDetail = (props) => {
     }
   }
 
-  const changeDownloadStatus = () => {
-    if(item.downloaded === true){
-      item.downloaded = false
-      setDownloadIcon('cloud-download')
-      setDownloadText('Download')
-    }else{
-      item.downloaded = true
-      setDownloadIcon('cloud-done')
-      setDownloadText('Downloaded')
+  const updateYoutubeVideoStatus = async (state) =>{
+    if(state === 'unstarted'){
+      await videoRef.current.seekTo(video.currentTime, true)
+    }
+    else if(state === 'paused'){
+      await videoRef.current.getCurrentTime().then((res) => {
+        const time = Number(res.toFixed(0));
+        if(time !== 0){
+          setTimeVideo(currentLessonId, time, authenContext.authenState.token);
+        }
+      })
+    }
+    else if(state === 'ended') {
+      if(video.isFinish === false){
+        await setFinishVideo(currentLessonId, authenContext.authenState.token);
+      }
+    }
+  }
+
+  const updateAVVideoStatus = async (state) => {
+    if(state.isPlaying === false) {
+      if(state.didJustFinish === true){
+        if(video.isFinish === false){
+          await setFinishVideo(currentLessonId, authenContext.authenState.token);
+        }
+      }
+      else {
+        const time = Number((state.positionMillis / 1000).toFixed(0));
+        await setTimeVideo(currentLessonId, time, authenContext.authenState.token);
+      }
     }
   }
 
@@ -109,11 +142,7 @@ export const CourseDetail = (props) => {
             <TouchableOpacity onPress={changeBookmarkStatus}>
               <Icon name={bookmarkIcon} type={'material-icons'} size={30}/>
               <Text>{bookmarkText}</Text>
-            </TouchableOpacity>  
-            <TouchableOpacity onPress={changeDownloadStatus}>
-              <Icon name={downloadIcon} type={'material-icons'} size={30}/>
-              <Text>{downloadText}</Text>
-            </TouchableOpacity>       
+            </TouchableOpacity>         
           </View>
           <View style={{margin: 10}}>
             <ViewMoreText numberOfLines={3} textStyle={{fontSize: 12}}>
@@ -142,7 +171,6 @@ export const CourseDetail = (props) => {
       props.navigation.goBack();
     }).catch((error) => console.log('Get courses: ', error))
   }
-
   
   if(loading===false){
     if(courseDetail.length !== 0){
@@ -155,6 +183,7 @@ export const CourseDetail = (props) => {
             height={250}
             videoId={getYoutubeID(video.videoUrl)}
             play={true}
+            onChangeState={(state) => updateYoutubeVideoStatus(state)}
             /> : 
             <Video source={{uri: video.videoUrl}}
             rate={1.0} volume={1.0} isMuted={false} resizeMode="cover"
@@ -162,6 +191,7 @@ export const CourseDetail = (props) => {
             style={{height: 250}}
             useNativeControls={true}
             progressUpdateIntervalMillis={5000}
+            onPlaybackStatusUpdate={(state) => updateAVVideoStatus(state)}
             />)
             : (
               <Image source={{uri: courseDetail.imageUrl}} style={styles.videoPlayer}/>

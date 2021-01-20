@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
         marginBottom:20,
         width:200,
         height:200,
-        backgroundColor: '#f5faf6'
+        backgroundColor: '#f5faf6',
+        shadowRadius: 10
     },
     image:{
         resizeMode:'stretch',

@@ -9,7 +9,7 @@ export const SplashScreen = (props) => {
   useEffect(()=>{
     let timer = setInterval(()=>{
       setLoading(loading => loading + 1)
-    }, 50)
+    }, 5)
     if(loading >= 100){
       clearInterval(timer);
       userProfileContext.setIsLoading(false);

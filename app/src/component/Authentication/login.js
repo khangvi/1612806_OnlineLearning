@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity, Image} from 'react-native'
 import { AuthenticationContext, UserProfileContext } from '../../../App';
 
@@ -24,10 +26,12 @@ const Login = (props) => {
     }
 }
   return (
-    <View style={{flex: 1, marginTop: 24, backgroundColor: 'white'}}>
-      <Image style={{height:250}} source={require('../../../assets/logo.jpg')}/>
-      <Text style={{textAlign:'center', color:'#3faee0', fontWeight:'bold', fontSize:30}}>Kavila</Text>
-      <View style = {styles.login}>
+    <KeyboardAvoidingView behavior={'height'}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{flex: 1, marginTop: 24, backgroundColor: 'white'}}>
+        <Image style={{height:250}} source={require('../../../assets/logo.jpg')}/>
+        <Text style={{textAlign:'center', color:'#3faee0', fontWeight:'bold', fontSize:30}}>Kavila</Text>
+        <View style = {styles.login}>
         <TextInput
         style = {styles.input}
         placeholder = 'Username'
@@ -55,6 +59,8 @@ const Login = (props) => {
         </TouchableOpacity>
       </View>
     </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 };
 
